@@ -1,0 +1,16 @@
+﻿# Ignore Visual Studio workspace and temporary files anywhere in the repo
+.vs/
+**/.vs/
+
+# Backend build/generated files
+Backend/MakeYourOwnPizza/bin/
+Backend/MakeYourOwnPizza/obj/
+Backend/MakeYourOwnPizza/*.user
+
+# Visual Studio temporary files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
