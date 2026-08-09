@@ -12,5 +12,6 @@ Backend/MakeYourOwnPizza/*.user
 *.user
 *.userosscache
 *.sln.docstates
+*.claude
 
 

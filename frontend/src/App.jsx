@@ -1,121 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
+
+import AuthLayout from './components/layout/AuthLayout'
+import CustomerLayout from './components/layout/CustomerLayout'
+import ManagerLayout from './components/layout/ManagerLayout'
+import DeliveryLayout from './components/layout/DeliveryLayout'
+
+import SignIn from './pages/auth/SignIn'
+import SignUp from './pages/auth/SignUp'
+import ForgotPassword from './pages/auth/ForgotPassword'
+import VerifyOtp from './pages/auth/VerifyOtp'
+import NewPassword from './pages/auth/NewPassword'
+
+import Builder from './pages/customer/Builder'
+import Cart from './pages/customer/Cart'
+import Checkout from './pages/customer/Checkout'
+import Payment from './pages/customer/Payment'
+import OrderConfirmation from './pages/customer/OrderConfirmation'
+import Orders from './pages/customer/Orders'
+import OrderDetails from './pages/customer/OrderDetails'
+import Track from './pages/customer/Track'
+import Settings from './pages/customer/Settings'
+
+import ManagerOrders from './pages/manager/ManagerOrders'
+import ManagerOrderDetails from './pages/manager/ManagerOrderDetails'
+
+import Deliveries from './pages/delivery/Deliveries'
+import DeliveryDetails from './pages/delivery/DeliveryDetails'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
 
-      <div className="ticks"></div>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+        <Route path="/new-password" element={<NewPassword />} />
+      </Route>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <Route path="/customer" element={<CustomerLayout />}>
+        <Route index element={<Navigate to="builder" replace />} />
+        <Route path="builder" element={<Builder />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="payment" element={<Payment />} />
+        <Route path="order-confirmation" element={<OrderConfirmation />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="orders/:orderId" element={<OrderDetails />} />
+        <Route path="track/:orderId" element={<Track />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <Route path="/manager" element={<ManagerLayout />}>
+        <Route index element={<Navigate to="orders" replace />} />
+        <Route path="orders" element={<ManagerOrders />} />
+        <Route path="orders/:orderId" element={<ManagerOrderDetails />} />
+      </Route>
+
+      <Route path="/delivery" element={<DeliveryLayout />}>
+        <Route index element={<Navigate to="deliveries" replace />} />
+        <Route path="deliveries" element={<Deliveries />} />
+        <Route path="deliveries/:orderId" element={<DeliveryDetails />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   )
 }
 

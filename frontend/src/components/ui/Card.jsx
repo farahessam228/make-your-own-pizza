@@ -1,0 +1,13 @@
+import { cn } from '../../lib/cn'
+
+export default function Card({ className, ...props }) {
+  return (
+    <div
+      className={cn(
+        'rounded-card border border-border bg-surface',
+        className
+      )}
+      {...props}
+    />
+  )
+}
