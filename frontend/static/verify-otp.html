@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Verify Code · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="auth">
+      <!-- Brand panel — hidden below 1024px -->
+      <aside class="auth__brand">
+        <span class="auth__glow auth__glow--primary" aria-hidden="true"></span>
+        <span class="auth__glow auth__glow--gold" aria-hidden="true"></span>
+
+        <span class="auth__logo">Make Your Own Pizza</span>
+
+        <div class="auth__pitch">
+          <p class="auth__pitch-title">
+            A clean digital pizza studio.<br />
+            Build yours, ingredient by ingredient.
+          </p>
+          <p class="auth__pitch-body">
+            Real toppings, real-time pricing, and a pizza that looks exactly how
+            you built it.
+          </p>
+        </div>
+      </aside>
+
+      <main class="auth__panel">
+        <div class="auth__form-wrap">
+          <h1 class="auth__title">Enter verification code</h1>
+          <!-- PLACEHOLDER: substitute the email the code was sent to -->
+          <p class="auth__subtitle">
+            We sent a 6-digit code to <strong>you@example.com</strong>.
+          </p>
+
+          <!-- FORM: verify the code, then redirect to new-password.html.
+               Auto-advance focus between boxes is a JS concern — wire it later. -->
+          <form class="stack stack--md mt-8" action="#" method="post">
+            <div class="otp">
+              <input class="otp__box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1 of 6" />
+              <input class="otp__box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2 of 6" />
+              <input class="otp__box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3 of 6" />
+              <input class="otp__box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4 of 6" />
+              <input class="otp__box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5 of 6" />
+              <input class="otp__box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6 of 6" />
+            </div>
+
+            <!-- ERROR: e.g. "That code isn't right." -->
+            <p class="form-error" hidden>That code isn't right.</p>
+
+            <button class="btn btn--primary btn--lg mt-1" type="submit">Verify</button>
+          </form>
+
+          <p class="auth__footnote">
+            Didn't get a code? <a class="link" href="forgot-password.html">Resend</a>
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
