@@ -4,10 +4,10 @@ services:
         context: .
         dockerfile: Dockerfile
       ports:
-      - target: 8000
-        published: 8000  
-      - target: 8001
-        published: 8001
+      - target: 8080
+        published: 8080  
+      - target: 8081
+        published: 8081
       
       environment:
          ASPNETCORE_ENVIRONMENT: Development
