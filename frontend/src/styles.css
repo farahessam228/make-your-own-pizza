@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ==========================================================================
    Make Your Own Pizza — design system
    Hand-written CSS. No build step, no framework.
@@ -63,10 +65,14 @@
   --shadow-pizza: 0 18px 40px -12px rgba(38, 35, 33, 0.35);
 
   /* Layout */
-  --page-max: 72rem;   /* 1152px — customer & manager shells */
-  --page-narrow: 42rem; /* 672px  — checkout, manager detail */
-  --page-tight: 32rem;  /* 512px  — order detail, tracking */
-  --page-mobile: 36rem; /* 576px  — delivery shell */
+  --page-max: 72rem;
+  /* 1152px — customer & manager shells */
+  --page-narrow: 42rem;
+  /* 672px  — checkout, manager detail */
+  --page-tight: 32rem;
+  /* 512px  — order detail, tracking */
+  --page-mobile: 36rem;
+  /* 576px  — delivery shell */
   --header-h: 64px;
 
   --transition: 150ms ease;
@@ -109,6 +115,10 @@ figure,
 ol,
 ul {
   margin: 0;
+}
+
+li {
+  padding: 2px;
 }
 
 ol,
@@ -182,11 +192,25 @@ table {
   flex-direction: column;
 }
 
-.stack--xs { gap: 0.375rem; }
-.stack--sm { gap: 0.75rem; }
-.stack--md { gap: 1rem; }
-.stack--lg { gap: 1.5rem; }
-.stack--xl { gap: 2rem; }
+.stack--xs {
+  gap: 0.375rem;
+}
+
+.stack--sm {
+  gap: 0.75rem;
+}
+
+.stack--md {
+  gap: 1rem;
+}
+
+.stack--lg {
+  gap: 1.5rem;
+}
+
+.stack--xl {
+  gap: 2rem;
+}
 
 .row {
   display: flex;
@@ -254,7 +278,8 @@ table {
 
 .auth__brand {
   position: relative;
-  display: none; /* revealed at lg */
+  display: none;
+  /* revealed at lg */
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
@@ -385,7 +410,8 @@ table {
 }
 
 .app-nav {
-  display: none; /* revealed at md */
+  display: none;
+  /* revealed at md */
   align-items: center;
   gap: 0.25rem;
 }
@@ -474,9 +500,20 @@ table {
   stroke-linejoin: round;
 }
 
-.icon--sm { height: 1rem; width: 1rem; }
-.icon--lg { height: 4rem; width: 4rem; stroke-width: 2.5; }
-.icon--flip { transform: rotate(180deg); }
+.icon--sm {
+  height: 1rem;
+  width: 1rem;
+}
+
+.icon--lg {
+  height: 4rem;
+  width: 4rem;
+  stroke-width: 2.5;
+}
+
+.icon--flip {
+  transform: rotate(180deg);
+}
 
 /* --- Button ------------------------------------------------------- */
 
@@ -1935,19 +1972,49 @@ table {
 /* 7. Utilities                                                        */
 /* ------------------------------------------------------------------ */
 
-.text-muted { color: var(--color-text-muted); }
-.text-primary { color: var(--color-primary-dark); }
-.text-error { color: var(--color-error); }
-.text-success { color: var(--color-accent-green); }
+.text-muted {
+  color: var(--color-text-muted);
+}
 
-.text-sm { font-size: 0.875rem; }
-.text-xs { font-size: 0.75rem; }
-.text-lead { font-size: 0.9375rem; }
+.text-primary {
+  color: var(--color-primary-dark);
+}
 
-.font-mono { font-family: var(--font-mono); }
-.font-display { font-family: var(--font-display); }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
+.text-error {
+  color: var(--color-error);
+}
+
+.text-success {
+  color: var(--color-accent-green);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-lead {
+  font-size: 0.9375rem;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
 
 .mono-total {
   font-family: var(--font-mono);
@@ -1963,18 +2030,51 @@ table {
   color: var(--color-text);
 }
 
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 0.75rem; }
-.mt-4 { margin-top: 1rem; }
-.mt-5 { margin-top: 1.25rem; }
-.mt-6 { margin-top: 1.5rem; }
-.mt-8 { margin-top: 2rem; }
+.mt-1 {
+  margin-top: 0.25rem;
+}
 
-.w-full { width: 100%; }
-.text-center { text-align: center; }
-.self-start { align-self: flex-start; }
-.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
 
 .visually-hidden {
   position: absolute;
@@ -2084,6 +2184,7 @@ table {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
