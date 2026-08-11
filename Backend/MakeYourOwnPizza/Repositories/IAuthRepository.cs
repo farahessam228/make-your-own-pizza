@@ -5,5 +5,7 @@ namespace MakeYourOwnPizza.Repositories
     {
         Task<bool>CreateUserAsync(User user);
         Task<bool>UserExistsAsync(string email);
+
+        Task<User?> GetUserByEmailAsync(string email);
     }
 }

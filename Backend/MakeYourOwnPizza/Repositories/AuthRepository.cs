@@ -44,5 +44,10 @@ namespace MakeYourOwnPizza.Repositories
         {
             return await _context.User.AnyAsync(u => u.email == email);
         }
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.User
+                .FirstOrDefaultAsync(u => u.email == email);
+        }
     }
 }

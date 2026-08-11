@@ -30,5 +30,26 @@ namespace MakeYourOwnPizza.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                var token = await _authService.LoginUserAsync(loginDto);
+
+                return Ok(new
+                {
+                    accessToken = token
+                });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }
