@@ -1,0 +1,34 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MakeYourOwnPizza.Dtos;
+using MakeYourOwnPizza.Services;
+namespace MakeYourOwnPizza.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
+    {
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        {
+            try
+            {
+                var result = await _authService.RegisterUserAsync(registerDto);
+                if (result != RegisterResult.Success)
+                {
+                    return BadRequest(new { message = result.ToString() });
+                }
+                return Ok(new { message = "User registered successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+    }
+}

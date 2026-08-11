@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using MakeYourOwnPizza.Data;
+using MakeYourOwnPizza.Repositories;
+using MakeYourOwnPizza.Services;
+using MakeYourOwnPizza.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +16,9 @@ var connectionString=builder.Configuration.GetConnectionString("DefaultConnectio
 Console.WriteLine($"Connection String {connectionString}");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IPasswordHasher<User>,PasswordHasher<User>>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
