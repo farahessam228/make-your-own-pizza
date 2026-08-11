@@ -15,7 +15,7 @@ namespace MakeYourOwnPizza.Data.Configurations
                 .WithMany(o => o.orderIngredients)
                 .HasForeignKey(oi => oi.orderItemId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(oi => oi.ingredient)
+            builder.HasOne(oi => oi.Ingredient)
                 .WithMany()
                 .HasForeignKey(oi => oi.ingredientId)
                 .OnDelete(DeleteBehavior.Restrict);

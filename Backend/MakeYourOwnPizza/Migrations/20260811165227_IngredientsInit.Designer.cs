@@ -4,6 +4,7 @@ using MakeYourOwnPizza.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakeYourOwnPizza.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260811165227_IngredientsInit")]
+    partial class IngredientsInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +87,7 @@ namespace MakeYourOwnPizza.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("IngredientsId")
+                    b.Property<Guid>("IngredientId")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("ingredientId")
@@ -98,7 +101,7 @@ namespace MakeYourOwnPizza.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IngredientsId");
+                    b.HasIndex("IngredientId");
 
                     b.HasIndex("ingredientId");
 
@@ -280,11 +283,13 @@ namespace MakeYourOwnPizza.Migrations
 
             modelBuilder.Entity("MakeYourOwnPizza.Models.OrderIngredient", b =>
                 {
-                    b.HasOne("MakeYourOwnPizza.Models.Ingredients", null)
-                        .WithMany("orderIngredients")
-                        .HasForeignKey("IngredientsId");
-
                     b.HasOne("MakeYourOwnPizza.Models.Ingredients", "Ingredient")
+                        .WithMany("orderIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MakeYourOwnPizza.Models.Ingredients", "ingredient")
                         .WithMany()
                         .HasForeignKey("ingredientId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -297,6 +302,8 @@ namespace MakeYourOwnPizza.Migrations
                         .IsRequired();
 
                     b.Navigation("Ingredient");
+
+                    b.Navigation("ingredient");
 
                     b.Navigation("orderItem");
                 });
