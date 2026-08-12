@@ -114,6 +114,10 @@ namespace MakeYourOwnPizza.Services
             return token;
 
         }
+        public  Task LogoutUserAsync(Guid userId)
+        {
+            return Task.CompletedTask; // Implementation for logging out a user
+        }
 
     }
 }
