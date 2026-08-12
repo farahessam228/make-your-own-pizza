@@ -14,17 +14,19 @@ type ProfileProps = {
 export default function ProfilePage() {
     const [profile, setProfile] = useState<ProfileProps>({
         firstName: "Karim",
-        lastName: "Ahmed",
-        email: "ka6260806@gmail.com",
+        lastName: "Ahmzed",
+        email: "[EMAIL_ADDRESS]",
         phone: "01000661832",
     })
     const [isEditing, setIsEditing] = useState(false)
     useEffect(() => {
         async function fetchProfile() {
             const data = await getProfile()
-            setProfile(data)
+            if (data) {
+                setProfile(data)
+            }
         }
-
+        fetchProfile()
     }, [])
     return (
         <>
@@ -66,16 +68,14 @@ export default function ProfilePage() {
     )
 }
 
-async function getProfile() {
+async function getProfile(): Promise<ProfileProps | undefined> {
     try {
         const response = await fetch("http://localhost:3000/api/user")
         const data = await response.json()
         if (!response.ok) {
             throw new Error(data.message)
         }
-        else {
-            return data
-        }
+        return data
     } catch (error) {
         console.error(error)
     }
