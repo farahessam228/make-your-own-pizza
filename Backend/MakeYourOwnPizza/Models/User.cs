@@ -13,8 +13,10 @@ namespace MakeYourOwnPizza.Models
         public string address { get; set; }
 
         public Role role { get; set; }
-        public string refreshToken { get; set; }
-        public DateTime refreshTokenExpiryTime { get; set; }
+        public string? refreshToken { get; set; } = null;
+        public DateTime? refreshTokenExpiryTime { get; set; } = null;
+        public bool isActive { get; set; } = false;
+        public bool isDeleted { get; set; } = false;
         public ICollection<Order> orders { get; set; } = new HashSet<Order>();
     }
 }
