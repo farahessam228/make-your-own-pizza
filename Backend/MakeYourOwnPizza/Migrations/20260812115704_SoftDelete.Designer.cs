@@ -4,6 +4,7 @@ using MakeYourOwnPizza.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakeYourOwnPizza.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260812115704_SoftDelete")]
+    partial class SoftDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace MakeYourOwnPizza.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("MakeYourOwnPizza.Models.EmailVerification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("OtpHash")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("EmailVerification");
-                });
 
             modelBuilder.Entity("MakeYourOwnPizza.Models.Ingredients", b =>
                 {
@@ -245,6 +219,11 @@ namespace MakeYourOwnPizza.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -294,17 +273,6 @@ namespace MakeYourOwnPizza.Migrations
                         .IsUnique();
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("MakeYourOwnPizza.Models.EmailVerification", b =>
-                {
-                    b.HasOne("MakeYourOwnPizza.Models.User", "User")
-                        .WithMany("EmailVerifications")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MakeYourOwnPizza.Models.Order", b =>
@@ -403,8 +371,6 @@ namespace MakeYourOwnPizza.Migrations
 
             modelBuilder.Entity("MakeYourOwnPizza.Models.User", b =>
                 {
-                    b.Navigation("EmailVerifications");
-
                     b.Navigation("orders");
                 });
 #pragma warning restore 612, 618
