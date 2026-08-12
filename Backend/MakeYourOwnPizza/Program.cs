@@ -32,6 +32,7 @@ builder.Services.AddScoped<IVerificationApi, VerificationApi>();
 builder.Services.AddScoped<IOtpService, OtpService>();
 builder.Services.AddScoped<IAuthApi, AuthApi>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAuthentication(
     JwtBearerDefaults.AuthenticationScheme
 )

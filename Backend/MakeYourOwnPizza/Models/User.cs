@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace MakeYourOwnPizza.Models
-{
+
+
     public class User
     {
         public Guid Id { get; set; }
@@ -18,4 +18,3 @@ namespace MakeYourOwnPizza.Models
         public ICollection<Order> orders { get; set; } = new HashSet<Order>();
         public ICollection<EmailVerification> EmailVerifications { get; set; } = new HashSet<EmailVerification>();
     }
-}

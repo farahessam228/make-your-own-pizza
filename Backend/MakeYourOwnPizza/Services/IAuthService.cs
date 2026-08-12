@@ -9,5 +9,6 @@ namespace MakeYourOwnPizza.Services
         Task<Guid?> CheckEmailExistsAsync(string email);
 
         Task<bool>ActivateUser(Guid userId,bool _isActive);
+        Task LogoutUserAsync(Guid userId);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MakeYourOwnPizza.Dtos;
 using MakeYourOwnPizza.Services;
+
 namespace MakeYourOwnPizza.Controllers
 {
     [Route("api/[controller]")]
@@ -51,5 +52,23 @@ namespace MakeYourOwnPizza.Controllers
                 });
             }
         }
+        [HttpPost("logout")]
+
+    public async Task<IActionResult> Logout([FromBody] Guid userId)
+{
+    try
+    {
+        await _authService.LogoutUserAsync(userId);
+        return Ok(new { message = "User logged out successfully" });
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(new { message = ex.Message });
     }
 }
+        
+    }
+
+    
+}
+

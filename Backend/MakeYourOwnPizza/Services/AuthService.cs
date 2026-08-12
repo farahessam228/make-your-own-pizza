@@ -138,6 +138,10 @@ namespace MakeYourOwnPizza.Services
             var token = GenerateJwtToken(user);
             return token;
         }
+        public  Task LogoutUserAsync(Guid userId)
+        {
+            return Task.CompletedTask; // Implementation for logging out a user
+        }
 
         public async Task<Guid?> CheckEmailExistsAsync(string email)
         {
