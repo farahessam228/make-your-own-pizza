@@ -1,10 +1,16 @@
 import { useState } from "react"
-import ShowProfile from "@/components/showProfile"
-import EditProfile from "@/components/editProfile"
-import ProfileCard from "@/components/profileCard"
+import ShowProfile from "@/components/profile/showProfile"
+import EditProfile from "@/components/profile/editProfile"
+import ProfileCard from "@/components/profile/profileCard"
 
+type ProfileProps = {
+    firstName: string
+    lastName: string
+    email: string
+    phone: string
+}
 export default function ProfilePage() {
-    const [profile, setProfile] = useState({
+    const [profile, setProfile] = useState<ProfileProps>({
         firstName: "Karim",
         lastName: "Ahmed",
         email: "ka6260806@gmail.com",
@@ -26,8 +32,9 @@ export default function ProfilePage() {
                         email={profile.email}
                         phone={profile.phone}
                         edit={true}
+                        delete={false}
                         onEdit={() => setIsEditing(true)}
-
+                        onDelete={() => { }}
                     />
 
                     {isEditing ? (

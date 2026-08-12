@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 type ProfileHeaderProps = {
     firstName: string
@@ -6,10 +6,12 @@ type ProfileHeaderProps = {
     phone: string
     email: string
     edit: boolean
+    delete: boolean
     onEdit: () => void
+    onDelete: () => void
 }
 
-export default function ProfileCard({ firstName, lastName, email, phone, edit, onEdit }: ProfileHeaderProps) {
+export default function ProfileCard({ firstName, lastName, email, phone, edit, delete: delete_, onDelete, onEdit }: ProfileHeaderProps) {
     const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase()
     return (
         <>
@@ -25,13 +27,21 @@ export default function ProfileCard({ firstName, lastName, email, phone, edit, o
                     </div>
                 </div>
 
-                {edit ? (
-                    edit && <Button hidden={edit} className="mt-5 ml-8">Edit Profile</Button>
+                {delete_ ? (
+                    delete_ && <Button hidden={delete_} className=" mt-5 ml-8" style={{ marginLeft: "auto" }}>Delete Account</Button>
                 ) : (
-                    <Button onClick={onEdit} hidden={edit} className="mt-5 ml-8">
+                    <Button onClick={onDelete} hidden={delete_} className="block mt-5 ml-8">
+                        Delete Account
+                    </Button>
+                )}
+                {edit ? (
+                    <Button hidden={edit} className="flex items-center gap-3 mt-5 ml-8">Edit Profile</Button>
+                ) : (
+                    <Button onClick={onEdit} hidden={edit} className="flex items-center gap-3 mt-5 ml-8">
                         Edit Profile
                     </Button>
                 )}
+
             </div>
         </>
 
