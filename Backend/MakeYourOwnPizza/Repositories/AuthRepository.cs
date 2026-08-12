@@ -23,7 +23,6 @@ namespace MakeYourOwnPizza.Repositories
                 email,
                 password,
                 phone,
-                address,
                 role
             )
             VALUES
@@ -34,7 +33,6 @@ namespace MakeYourOwnPizza.Repositories
                 {user.email},
                 {user.password},
                 {user.phone},
-                {user.address},
                 {user.role.ToString()}
             );
             """);
@@ -46,8 +44,23 @@ namespace MakeYourOwnPizza.Repositories
         }
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await _context.User
+            return await _context.User.AsNoTracking()
                 .FirstOrDefaultAsync(u => u.email == email);
+        }
+        public async Task<User?> GetUserByIdAsync(Guid userId)
+        {
+            return await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+        }
+        public async Task<bool> UpdateUserStatus(Guid userId, bool _isActive)
+        {
+            User? user = await this.GetUserByIdAsync(userId);
+
+            if (user == null)
+                return false;
+            user.isActive = _isActive;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

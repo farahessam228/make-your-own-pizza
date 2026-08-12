@@ -7,5 +7,9 @@ namespace MakeYourOwnPizza.Repositories
         Task<bool>UserExistsAsync(string email);
 
         Task<User?> GetUserByEmailAsync(string email);
+
+        Task<User?> GetUserByIdAsync(Guid userId);
+
+        Task<bool>UpdateUserStatus(Guid userId,bool isActive);
     }
 }

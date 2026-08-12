@@ -2,12 +2,14 @@
 using MakeYourOwnPizza.Models;
 using MakeYourOwnPizza.Repositories;
 using MakeYourOwnPizza.Services;
+using MakeYourOwnPizza.Apis;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 namespace MakeYourOwnPizza.Services
 {
     public class AuthService : IAuthService
@@ -15,29 +17,27 @@ namespace MakeYourOwnPizza.Services
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IAuthRepository _authRepository;
         private readonly IConfiguration _configuration;
-        public AuthService(IPasswordHasher<User> passwordHasher, IAuthRepository authRepository, IConfiguration configuration)
+        private readonly IOtpService _otpService;
+        private readonly IVerificationApi _verificationApi;
+        private readonly IEmailService _emailService;
+
+        public AuthService(IPasswordHasher<User> passwordHasher, IAuthRepository authRepository, IConfiguration configuration, IOtpService otpService, IVerificationApi verificationApi, IEmailService emailService)
         {
             _passwordHasher = passwordHasher;
             _authRepository = authRepository;
             _configuration = configuration;
+            _otpService = otpService;
+            _verificationApi = verificationApi;
+            _emailService = emailService;
         }
 
         private string GenerateJwtToken(User user)
         {
             var claims = new[]
             {
-                new Claim(
-                    ClaimTypes.NameIdentifier,
-                    user.Id.ToString()
-                ),
-                new Claim(
-                    ClaimTypes.Email,
-                    user.email
-                ),
-                new Claim(
-                    ClaimTypes.Role,
-                    user.role.ToString()
-                )
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.email),
+                new Claim(ClaimTypes.Role, user.role.ToString())
             };
 
             var jwtKey = _configuration["Jwt:Key"];
@@ -64,17 +64,20 @@ namespace MakeYourOwnPizza.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
         public async Task<RegisterResult> RegisterUserAsync(RegisterDto registerDto)
         {
             if (registerDto.role != Role.Customer && registerDto.role != Role.Delivery)
             {
                 return RegisterResult.InvalidRole;
             }
+
             bool emailExists = await _authRepository.UserExistsAsync(registerDto.email);
             if (emailExists)
             {
                 return RegisterResult.EmailAlreadyExists;
             }
+
             var user = new User
             {
                 Id = Guid.NewGuid(),
@@ -82,9 +85,11 @@ namespace MakeYourOwnPizza.Services
                 lastName = registerDto.lastName,
                 email = registerDto.email,
                 phone = registerDto.phone,
-                address = registerDto.address,
+                isActive = false,
+                isDeleted = false,
                 role = registerDto.role
             };
+
             // Hash the password
             user.password = _passwordHasher.HashPassword(user, registerDto.password);
 
@@ -93,9 +98,27 @@ namespace MakeYourOwnPizza.Services
             {
                 return RegisterResult.EmailAlreadyExists;
             }
+
+            // Generate OTP and add email verification
+            try
+            {
+                var otp = _otpService.GenerateOtp();
+                if (_verificationApi != null)
+                {
+                    await _verificationApi.AddEmailVerificationAsync(user.Id, otp);
+                    await _emailService.SendVerificationEmailAsync(user.email, otp);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // swallow verification errors to not block registration
+                Console.WriteLine($"Verification error: {ex.Message}");
+                throw;
+            }
+
             return RegisterResult.Success;
         }
-
 
         public async Task<string?> LoginUserAsync(LoginDto loginDto)
         {
@@ -104,16 +127,27 @@ namespace MakeYourOwnPizza.Services
             {
                 throw new UnauthorizedAccessException("Invalid email or password");
             }
+
             var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.password, loginDto.password);
             if (passwordVerificationResult == PasswordVerificationResult.Failed)
             {
                 throw new UnauthorizedAccessException("Invalid email or password");
             }
+
             // Generate JWT token
             var token = GenerateJwtToken(user);
             return token;
-
         }
 
+        public async Task<Guid?> CheckEmailExistsAsync(string email)
+        {
+            var user = await _authRepository.GetUserByEmailAsync(email);
+            return user != null ? user.Id : null;
+        }
+
+        public async Task<bool> ActivateUser(Guid userId, bool _isActive)
+        {
+            return await _authRepository.UpdateUserStatus(userId, _isActive);
+        }
     }
 }

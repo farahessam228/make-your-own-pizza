@@ -17,7 +17,7 @@ namespace MakeYourOwnPizza.Data
         public DbSet<OrderIngredient> OrderIngredient { get; set; }
         public DbSet<OrderStage> OrderStage { get; set; }
         public DbSet<Payment> Payment { get; set; }
-
+        public DbSet<EmailVerification> EmailVerification { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);

@@ -6,6 +6,8 @@ using MakeYourOwnPizza.Services;
 using MakeYourOwnPizza.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MakeYourOwnPizza.Apis;
+using MakeYourOwnPizza.settings;
 using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +18,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine($"Connection String {connectionString}");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IVerificationRepository, VerificationRepository>();
+builder.Services.AddScoped<IVerificationService, VerificationService>();
+builder.Services.AddScoped<IVerificationApi, VerificationApi>();
+builder.Services.AddScoped<IOtpService, OtpService>();
+builder.Services.AddScoped<IAuthApi, AuthApi>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddAuthentication(
     JwtBearerDefaults.AuthenticationScheme
 )

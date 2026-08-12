@@ -19,9 +19,7 @@ namespace MakeYourOwnPizza.Dtos
         [Required(ErrorMessage = "Phone number is required")]
         [Phone(ErrorMessage = "Invalid phone number")]
         public string phone { get; set; }
-        [Required(ErrorMessage = "Address is required")]
-        public string address { get; set; }
         [Required(ErrorMessage = "Role is required")]
         public Role role { get; set; }
-        }
+    }
 }
