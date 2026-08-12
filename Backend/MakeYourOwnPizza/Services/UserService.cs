@@ -34,14 +34,8 @@ namespace MakeYourOwnPizza.Services
             // Apply partial updates only for provided fields
             if (!string.IsNullOrEmpty(dto.firstName)) existing.firstName = dto.firstName;
             if (!string.IsNullOrEmpty(dto.lastName)) existing.lastName = dto.lastName;
-            if (!string.IsNullOrEmpty(dto.email)) existing.email = dto.email;
             if (!string.IsNullOrEmpty(dto.phone)) existing.phone = dto.phone;
-            if (!string.IsNullOrEmpty(dto.address)) existing.address = dto.address;
-            if (dto.role.HasValue) existing.role = dto.role.Value;
-            if (dto.isActive.HasValue) existing.isActive = dto.isActive.Value;
-            if (dto.isDeleted.HasValue) existing.isDeleted = dto.isDeleted.Value;
-            if (!string.IsNullOrEmpty(dto.refreshToken)) existing.refreshToken = dto.refreshToken;
-            if (dto.refreshTokenExpiryTime.HasValue) existing.refreshTokenExpiryTime = dto.refreshTokenExpiryTime.Value;
+            
 
             await _db.SaveChangesAsync();
             return true;

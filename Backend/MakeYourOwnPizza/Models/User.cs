@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using MakeYourOwnPizza.Models;
 
     public class User
     {
