@@ -5,5 +5,7 @@ namespace MakeYourOwnPizza.Services
     {
         Task<RegisterResult> RegisterUserAsync(RegisterDto registerDto);
         Task<string?> LoginUserAsync(LoginDto loginDto);
+
+        Task LogoutUserAsync(Guid userId);
     }
 }
