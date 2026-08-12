@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ShowProfile from "@/components/profile/showProfile"
 import EditProfile from "@/components/profile/editProfile"
 import ProfileCard from "@/components/profile/profileCard"
@@ -9,6 +9,8 @@ type ProfileProps = {
     email: string
     phone: string
 }
+
+
 export default function ProfilePage() {
     const [profile, setProfile] = useState<ProfileProps>({
         firstName: "Karim",
@@ -16,9 +18,14 @@ export default function ProfilePage() {
         email: "ka6260806@gmail.com",
         phone: "01000661832",
     })
-
     const [isEditing, setIsEditing] = useState(false)
+    useEffect(() => {
+        async function fetchProfile() {
+            const data = await getProfile()
+            setProfile(data)
+        }
 
+    }, [])
     return (
         <>
             <div className="max-w-lg mx-auto p-6">
@@ -57,4 +64,19 @@ export default function ProfilePage() {
             </div>
         </>
     )
+}
+
+async function getProfile() {
+    try {
+        const response = await fetch("http://localhost:3000/api/user")
+        const data = await response.json()
+        if (!response.ok) {
+            throw new Error(data.message)
+        }
+        else {
+            return data
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }

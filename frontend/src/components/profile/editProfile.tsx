@@ -29,6 +29,7 @@ export default function EditProfile({ firstName: initialFirstName, lastName: ini
 
                 <div className="btn-group-small">
                     <Button
+                        onClick={() => handleSave(firstName, lastName, phone)}
                         disabled={isFieldEmpty(firstName) ||
                             isFieldEmpty(lastName) ||
                             isFieldEmpty(phone) ||
@@ -58,6 +59,29 @@ function isPhoneCorrect(field: string) {
         return true
     }
     return false;
+}
 
-
+async function handleSave(firstName: string, lastName: string, phone: string) {
+    try {
+        const response = await fetch("http://localhost:3000/api/user", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                phone,
+            })
+        })
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message)
+        }
+        else {
+            return data;
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }

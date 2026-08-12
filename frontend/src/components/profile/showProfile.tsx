@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ProfileField } from "@/components/ui/field"
 
-
-
 type ShowProfileProps = {
     firstName: string
     lastName: string
