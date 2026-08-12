@@ -24,12 +24,11 @@ export default function LoginForm(){
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                    >
+                    />
                         {formik.touched.email && formik.errors.email? 
                             (<div style={{ color: 'red' }}>{formik.errors.email}</div>):
                             null
                         }        
-                    </input>
                 </div>
                 <div>
                     <label>Password</label>
@@ -38,12 +37,11 @@ export default function LoginForm(){
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                    >
+                    />
                         {formik.touched.password && formik.errors.password? 
                             (<div style={{ color: 'red' }}>{formik.errors.password}</div>):
                             null
                         }
-                    </input>
                 </div>
                 <button type="submit" disabled={formik.isSubmitting}>
                     {formik.isSubmitting ? 'Submitting...' : 'Login'}

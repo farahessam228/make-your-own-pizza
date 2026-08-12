@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
+:root{
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Outfit', system-ui, sans-serif;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.auth-container{
+    /* background-color:#FFF7ED ; */
+    background-color: #2b1308; 
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pizza-ring{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border-radius: 50%;
+}
+
+.ring-1{
+    background-color: #8B3A10;
+    width: 890px;
+    height: 890px;
+    z-index: 1;
+}
+
+.ring-2{
+    background-color:#C4621A ;
+    width: 780px;
+    height:780px;
+    z-index: 2;
+}
+
+.ring-3{
+    background-color: #D18339;
+    width:650px;
+    height: 650px;
+    z-index:3;
+}
+.ring-4{
+    background-color:#CAA351 ;
+    width: 500px;
+    height: 500px;
+    z-index: 4;
+}
+.topping {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    z-index:5;
+}
+.t-1 { top: 35%; left: 38%; background-color: rgb(192, 57, 43,0.5); }
+.t-2 { top: 60%; left: 62%; background-color: rgb(15, 157, 74,0.5); }
+.t-3 { top: 45%; left: 65%; background-color: rgb(241, 196, 15,0.5); }
+.t-4 { top: 65%; left: 35%; background-color: rgb(144, 12, 63,0.5); }
+
+.form-card {
+    position: relative;
+    z-index: 10; 
+    background: #FFF7ED; 
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width:300px;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    transition: max-width 0.3s ease;
+}
+.form-card.login-mode {
+    max-width: 380px;
+}
+.form-card.signup-mode {
+    max-width: 560px;
+}
+.signup-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    column-gap: 16px; 
+    row-gap: 12px; 
+}
+.full-width {
+    grid-column: 1 / -1; 
+}
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #d35400;
+    font-weight: bold;
+    cursor: pointer;
+}
+.toggle-btn:hover {
+    text-decoration: underline;
+}
+.form-card h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: #2b1308;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+.form-card p{
+    color: rgba(92, 44, 22, 0.5);
+    margin: 8px;
+    /* margin-top: 9px; */
+}
+.form-card form div {
+    /* margin-bottom: 15px; */
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+}
+
+.form-card label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5c2c16;
+    margin-bottom: 2px;
+}
+
+.form-card input {
+    padding: 12px 15px;
+    border: 1px solid #EECDAE;
+    border-radius: 8px;
+    background-color: #FBEDDA;
+    box-shadow: 0px 1px 5px rgba(110, 59, 27, 0.3);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+
+.form-card input:focus {
+    border-color: #d35400;
+    box-shadow: 0 0 5px rgba(211, 84, 0, 0.2);
+}
+
+.form-card button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #d35400;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-card button[type="submit"]:hover {
+    background-color: #b94600;
+}
+
+.role-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    margin-top: 5px;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 8px;
+    border: 1.5px solid #d35400;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #d35400;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.role-btn.active {
+    background-color: #d35400;
+    color: white;
+    box-shadow: 0 2px 8px rgba(211, 84, 0, 0.3);
+}
+
+.role-btn:hover:not(.active) {
+    background-color: #fbedda;
+}
