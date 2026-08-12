@@ -16,6 +16,7 @@ export default function RegisterComponent() {
     const validation = isPasswordValid(password)
     const emailValidation = isEmailValid(email)
     return (
+
         <div className="w-full max-w-sm mx-auto p-6 rounded-2xl">
 
             <div className="pt-4">

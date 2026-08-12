@@ -1,4 +1,4 @@
-import RegisterComponent from "@/components/ui/register.tsx"
+import RegisterComponent from "@/components/register"
 
 export default function SignUpPage() {
     return <RegisterComponent />

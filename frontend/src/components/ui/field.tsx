@@ -4,6 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import { Input } from "@/components/ui/input"
 
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   return (
@@ -181,6 +182,35 @@ function FieldSeparator({
   )
 }
 
+function ProfileField({
+  label,
+  value,
+  onChange,
+  type = "text",
+}: {
+  label: string
+  value: string
+  onChange?: (value: string) => void
+  type?: string
+}) {
+  return (
+    <Field className="field">
+      <FieldLabel>{label}</FieldLabel>
+      {onChange ? (
+        <Input
+          type={type}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        />
+      ) : (
+        <div className="input-field-primary">
+          {value}
+        </div>
+      )}
+    </Field>
+  )
+}
+
 function FieldError({
   className,
   children,
@@ -243,4 +273,5 @@ export {
   FieldSet,
   FieldContent,
   FieldTitle,
+  ProfileField,
 }
