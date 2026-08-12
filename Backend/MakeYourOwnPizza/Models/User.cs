@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-c
-{
+
+
     public class User
     {
         public Guid Id { get; set; }
@@ -19,4 +19,3 @@ c
         public bool isDeleted { get; set; } = false;
         public ICollection<Order> orders { get; set; } = new HashSet<Order>();
     }
-}
