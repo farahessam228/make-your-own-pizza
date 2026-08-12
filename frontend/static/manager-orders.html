@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Orders · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header app-header--solid">
+        <div class="container app-header__inner">
+          <div class="row">
+            <span class="app-header__brand app-header__brand--sm">Make Your Own Pizza</span>
+            <span class="badge badge--role">Manager</span>
+          </div>
+          <nav class="app-nav app-nav--always">
+            <a class="app-nav__link is-active" href="manager-orders.html">Orders</a>
+            <a class="app-nav__link" href="manager-ingredients.html">Ingredients</a>
+            <a class="app-nav__link" href="login.html">Log out</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container app-main--flush">
+        <div class="page-header">
+          <div>
+            <p class="page-header__eyebrow">Manager</p>
+            <h1 class="page-header__title">Orders</h1>
+          </div>
+        </div>
+
+        <div class="row row--between row--wrap mt-6">
+          <!-- TABS: All / Pending / In Progress / Completed -->
+          <div class="tabs" role="tablist">
+            <button class="tabs__tab is-active" role="tab" aria-selected="true" type="button">All</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" type="button">Pending</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" type="button">In Progress</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" type="button">Completed</button>
+          </div>
+
+          <div class="search">
+            <svg class="icon search__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.3-4.3 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+            <input class="input" type="search" placeholder="Search orders..." aria-label="Search orders" />
+          </div>
+        </div>
+
+        <!-- EMPTY STATE: when no orders match, replace .table-wrap with —
+          <div class="empty mt-6">
+            <h3 class="empty__title">No matching orders</h3>
+            <p class="empty__description">Try a different filter or search term.</p>
+          </div>
+        -->
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th class="col-sm">Customer</th>
+                <th class="col-md">Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <!-- TEMPLATE: repeat <tr> per order -->
+            <tbody>
+              <tr>
+                <td class="font-mono font-semibold">#1842</td>
+                <td class="col-sm">Karim Ahmed</td>
+                <td class="col-md is-muted">2 pizza(s)</td>
+                <td class="font-mono">EGP 390</td>
+                <td><span class="badge badge--primary">On the Way</span></td>
+                <td class="col-actions">
+                  <a class="btn btn--secondary btn--sm" href="manager-order-details.html">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-semibold">#1771</td>
+                <td class="col-sm">Karim Ahmed</td>
+                <td class="col-md is-muted">1 pizza(s)</td>
+                <td class="font-mono">EGP 190</td>
+                <td><span class="badge badge--green">Delivered</span></td>
+                <td class="col-actions">
+                  <a class="btn btn--secondary btn--sm" href="manager-order-details.html">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-semibold">#1901</td>
+                <td class="col-sm">Mona Adel</td>
+                <td class="col-md is-muted">1 pizza(s)</td>
+                <td class="font-mono">EGP 178</td>
+                <td><span class="badge badge--primary">Preparing</span></td>
+                <td class="col-actions">
+                  <a class="btn btn--secondary btn--sm" href="manager-order-details.html">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-semibold">#1898</td>
+                <td class="col-sm">Youssef Tarek</td>
+                <td class="col-md is-muted">3 pizza(s)</td>
+                <td class="font-mono">EGP 460</td>
+                <td><span class="badge badge--neutral">Order is being assigned</span></td>
+                <td class="col-actions">
+                  <a class="btn btn--secondary btn--sm" href="manager-order-details.html">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-semibold">#1877</td>
+                <td class="col-sm">Laila Hassan</td>
+                <td class="col-md is-muted">1 pizza(s)</td>
+                <td class="font-mono">EGP 145</td>
+                <td><span class="badge badge--gold">Packing</span></td>
+                <td class="col-actions">
+                  <a class="btn btn--secondary btn--sm" href="manager-order-details.html">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-semibold">#1863</td>
+                <td class="col-sm">Karim Ahmed</td>
+                <td class="col-md is-muted">1 pizza(s)</td>
+                <td class="font-mono">EGP 158</td>
+                <td><span class="badge badge--gold">Waiting for Delivery</span></td>
+                <td class="col-actions">
+                  <a class="btn btn--secondary btn--sm" href="manager-order-details.html">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+    </div>
+  </body>
+</html>

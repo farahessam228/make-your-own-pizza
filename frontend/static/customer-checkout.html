@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Checkout · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header">
+        <div class="container app-header__inner">
+          <a class="app-header__brand" href="customer-builder.html">
+            Make Your Own Pizza
+          </a>
+          <nav class="app-nav">
+            <a class="app-nav__link" href="customer-builder.html">Build Pizza</a>
+            <a class="app-nav__link" href="customer-orders.html">My Orders</a>
+            <a class="app-nav__link is-active" href="customer-cart.html">Cart</a>
+            <a class="app-nav__link" href="customer-settings.html">Profile</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container container--narrow app-main">
+        <div class="page-header">
+          <div>
+            <p class="page-header__eyebrow">Checkout</p>
+            <h1 class="page-header__title">Checkout</h1>
+          </div>
+        </div>
+
+        <!-- FORM: on submit, go to customer-payment.html for card,
+             or customer-order-confirmation.html for cash on delivery. -->
+        <form class="stack stack--lg mt-8" action="#" method="post">
+          <section class="card card--pad">
+            <h2 class="card__title">Delivery address</h2>
+
+            <div class="stack stack--sm mt-4">
+              <!-- PLACEHOLDER: render the customer's saved address -->
+              <label class="option">
+                <input type="radio" name="address" value="saved" checked />
+                <div>
+                  <p class="option__title">Saved address</p>
+                  <p class="option__meta">
+                    Karim Ahmed · 14 Nile Corniche, Apt 6, Floor 3, Cairo
+                  </p>
+                  <p class="option__meta">+20 100 123 4567</p>
+                </div>
+              </label>
+
+              <label class="option option--center">
+                <input type="radio" name="address" value="new" />
+                <span class="option__title">Add a new address</span>
+              </label>
+
+              <!-- Shown when "Add a new address" is chosen -->
+              <div class="subform">
+                <label class="field">
+                  <span class="field__label">Full name</span>
+                  <input class="input" type="text" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">Phone number</span>
+                  <input class="input" type="tel" required />
+                </label>
+                <label class="field field--span">
+                  <span class="field__label">Street address</span>
+                  <input class="input" type="text" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">Building number</span>
+                  <input class="input" type="text" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">Floor number</span>
+                  <input class="input" type="text" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">Apartment number</span>
+                  <input class="input" type="text" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">City</span>
+                  <input class="input" type="text" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">Postal code</span>
+                  <input class="input" type="text" />
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card--pad">
+            <h2 class="card__title">Payment</h2>
+            <div class="stack stack--sm mt-4">
+              <label class="option option--center">
+                <input type="radio" name="payment" value="cod" checked />
+                <span class="option__title">Cash on Delivery</span>
+              </label>
+              <label class="option option--center">
+                <input type="radio" name="payment" value="card" />
+                <span class="option__title">Visa / Credit Card</span>
+              </label>
+            </div>
+          </section>
+
+          <section class="card card--pad">
+            <h2 class="card__title">Order summary</h2>
+            <!-- TEMPLATE: repeat .summary-row per cart line -->
+            <div class="stack stack--xs mt-4">
+              <div class="summary-row">
+                <span>Custom Pizza × 2</span>
+                <span class="font-mono">EGP 350</span>
+              </div>
+              <div class="summary-row">
+                <span>Custom Pizza × 1</span>
+                <span class="font-mono">EGP 150</span>
+              </div>
+              <div class="summary-row summary-row--total">
+                <span>Total</span>
+                <span class="font-mono">EGP 500</span>
+              </div>
+            </div>
+          </section>
+
+          <button class="btn btn--primary btn--lg btn--block" type="submit">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+            Place Order
+          </button>
+        </form>
+
+      </main>
+
+      <!-- Mobile tab bar — hidden from 768px up -->
+      <nav class="tabbar">
+        <a class="tabbar__link" href="customer-builder.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 20H2L12 2Z M12 9v6 M9 13h6"/></svg>Build Pizza</a>
+        <a class="tabbar__link" href="customer-orders.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4z M4 10h16v10H4z M9 14h6"/></svg>My Orders</a>
+        <a class="tabbar__link is-active" href="customer-cart.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg>Cart</a>
+        <a class="tabbar__link" href="customer-settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 20c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>Profile</a>
+      </nav>
+    </div>
+  </body>
+</html>

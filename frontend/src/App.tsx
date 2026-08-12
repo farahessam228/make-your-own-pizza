@@ -1,19 +1,13 @@
-/// <reference types="vite/client" />
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthPage from './pages/AuthPage'
+import ProfilePage from './pages/ProfilePage'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <AuthPage/>
-    </>
+    <Routes>
+      <Route path="/" element={<AuthPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
-
-export default App

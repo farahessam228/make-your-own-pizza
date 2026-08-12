@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Deliveries · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header app-header--sticky-solid">
+        <div class="container container--mobile app-header__inner">
+          <span class="app-header__brand app-header__brand--sm">Deliveries</span>
+          <a href="login.html" class="text-muted" aria-label="Profile"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 20c1.6-4 5-6 8-6s6.4 2 8 6"/></svg></a>
+        </div>
+      </header>
+
+      <main class="container container--mobile app-main app-main--compact">
+        <h1 class="title-lg">Your deliveries</h1>
+
+        <div class="tabs mt-4" role="tablist">
+          <button class="tabs__tab is-active" role="tab" aria-selected="true" type="button">
+            Active
+          </button>
+          <button class="tabs__tab" role="tab" aria-selected="false" type="button">
+            Completed
+          </button>
+        </div>
+
+        <!-- EMPTY STATE: when the list is empty —
+          <div class="empty mt-5">
+            <h3 class="empty__title">No active deliveries</h3>
+          </div>
+        -->
+
+        <!-- TEMPLATE: repeat .delivery-card per assigned order -->
+        <div class="stack stack--sm mt-5">
+          <a href="delivery-details.html">
+            <article class="card delivery-card">
+              <div>
+                <p class="delivery-card__id">#1842</p>
+                <p class="delivery-card__customer">Karim Ahmed</p>
+                <p class="delivery-card__address">
+                  <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z M12 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+                  14 Nile Corniche, Apt 6, Cairo
+                </p>
+              </div>
+              <div class="delivery-card__side">
+                <p class="delivery-card__total">EGP 390</p>
+                <svg class="icon delivery-card__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+              </div>
+            </article>
+          </a>
+
+          <a href="delivery-details.html">
+            <article class="card delivery-card">
+              <div>
+                <p class="delivery-card__id">#1863</p>
+                <p class="delivery-card__customer">Karim Ahmed</p>
+                <p class="delivery-card__address">
+                  <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z M12 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+                  14 Nile Corniche, Apt 6, Cairo
+                </p>
+              </div>
+              <div class="delivery-card__side">
+                <p class="delivery-card__total">EGP 158</p>
+                <svg class="icon delivery-card__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+              </div>
+            </article>
+          </a>
+
+          <a href="delivery-details.html">
+            <article class="card delivery-card">
+              <div>
+                <p class="delivery-card__id">#1877</p>
+                <p class="delivery-card__customer">Laila Hassan</p>
+                <p class="delivery-card__address">
+                  <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z M12 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+                  9 Heliopolis Sq, Cairo
+                </p>
+              </div>
+              <div class="delivery-card__side">
+                <p class="delivery-card__total">EGP 145</p>
+                <svg class="icon delivery-card__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+              </div>
+            </article>
+          </a>
+        </div>
+
+      </main>
+    </div>
+  </body>
+</html>

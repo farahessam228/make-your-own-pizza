@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Order Details · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header app-header--solid">
+        <div class="container app-header__inner">
+          <div class="row">
+            <span class="app-header__brand app-header__brand--sm">Make Your Own Pizza</span>
+            <span class="badge badge--role">Manager</span>
+          </div>
+          <nav class="app-nav app-nav--always">
+            <a class="app-nav__link is-active" href="manager-orders.html">Orders</a>
+            <a class="app-nav__link" href="manager-ingredients.html">Ingredients</a>
+            <a class="app-nav__link" href="login.html">Log out</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container container--narrow app-main--flush">
+        <div class="page-header">
+          <div>
+            <p class="page-header__eyebrow">Manager</p>
+            <!-- PLACEHOLDER: order id -->
+            <h1 class="page-header__title">Order #1842</h1>
+          </div>
+        </div>
+
+        <div class="card card--pad mt-6">
+          <section class="card__section">
+            <h2 class="card__label">Customer</h2>
+            <p class="mt-2 text-sm font-semibold">Karim Ahmed</p>
+            <p class="card__label mt-3">Delivery address</p>
+            <p class="mt-1 text-sm text-muted">14 Nile Corniche, Apt 6, Cairo</p>
+          </section>
+
+          <section class="card__section">
+            <h2 class="card__label">Items</h2>
+            <!-- TEMPLATE: repeat per line item -->
+            <p class="mt-2 text-sm">Custom Pizza × 2 — Pepperoni, Mushroom, Fresh Basil</p>
+          </section>
+
+          <section class="card__section">
+            <div class="row row--between">
+              <span class="text-sm font-semibold text-muted">Payment</span>
+              <span class="text-sm font-semibold">Cash on Delivery</span>
+            </div>
+          </section>
+
+          <section class="card__section">
+            <div class="row row--between">
+              <span class="text-sm font-semibold text-muted">Total</span>
+              <span class="mono-total">EGP 390</span>
+            </div>
+          </section>
+
+          <section class="card__section">
+            <h2 class="card__label">Order status</h2>
+            <!-- SELECT: remove [hidden] from .select__menu to open -->
+            <div class="select">
+              <button class="select__trigger" type="button" aria-haspopup="listbox">
+                On the Way
+                <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="select__menu" hidden role="listbox">
+              <button class="select__option" type="button">Preparing</button>
+              <button class="select__option" type="button">Packing</button>
+              <button class="select__option" type="button">Waiting for Delivery</button>
+              <button class="select__option is-selected" type="button">On the Way</button>
+              <button class="select__option" type="button">Delivered</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card__section">
+            <h2 class="card__label">Kitchen</h2>
+            <!-- Once assigned, replace the button with:
+                 <p class="mt-2 text-sm font-semibold text-success">Assigned to kitchen</p> -->
+            <button class="btn btn--secondary btn--sm mt-2" type="button">
+              Assign to Kitchen
+            </button>
+          </section>
+
+          <section class="card__section">
+            <h2 class="card__label">Delivery person</h2>
+            <div class="select">
+              <button class="select__trigger" type="button" aria-haspopup="listbox">
+                Ahmed Mohamed
+                <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="select__menu" hidden role="listbox">
+              <button class="select__option is-selected" type="button">Ahmed Mohamed</button>
+              <button class="select__option" type="button">Sara Naguib</button>
+              <button class="select__option" type="button">Omar Zaki</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- TOAST REGION -->
+    <div class="toast-region">
+      <div class="toast" hidden>Status updated</div>
+    </div>
+  </body>
+</html>
