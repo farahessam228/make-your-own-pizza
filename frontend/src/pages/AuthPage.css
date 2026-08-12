@@ -4,7 +4,8 @@
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Outfit', system-ui, sans-serif;
 }
-*{
+.auth-container,
+.auth-container *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -28,27 +29,27 @@
     border-radius: 50%;
 }
 
-.ring-1{
+.pizza-ring--1{
     background-color: #8B3A10;
     width: 890px;
     height: 890px;
     z-index: 1;
 }
 
-.ring-2{
+.pizza-ring--2{
     background-color:#C4621A ;
     width: 780px;
     height:780px;
     z-index: 2;
 }
 
-.ring-3{
+.pizza-ring--3{
     background-color: #D18339;
     width:650px;
     height: 650px;
     z-index:3;
 }
-.ring-4{
+.pizza-ring--4{
     background-color:#CAA351 ;
     width: 500px;
     height: 500px;
