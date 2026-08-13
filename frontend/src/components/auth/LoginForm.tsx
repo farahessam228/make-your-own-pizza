@@ -14,14 +14,15 @@ export default function LoginForm(){
         validationSchema:loginSchema,
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
         try {
-            const response = await axiosInstance.post('/auth/login', values);
-            const token = response.data.token; 
+            const response = await axiosInstance.post('/Auth/login', values);
+            console.log(values);
+            const token = response.data.accessToken; 
             
             if (token) {
                 localStorage.setItem('token', token);
                 navigate('/home'); 
             } else {
-                alert("حصلت مشكلة: مفيش توكن رجع من السيرفر!");
+                alert("MA7SHY WAR2 3ENB")
             }
 
         } catch (error: any) {
