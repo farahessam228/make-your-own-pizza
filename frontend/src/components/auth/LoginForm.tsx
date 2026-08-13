@@ -1,17 +1,36 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas/validationSchemas";
+import axiosInstance from "../../api/axiosConfig";
 
 export default function LoginForm(){
+    const navigate = useNavigate();
     const formik=useFormik({
         initialValues:{
             email:'',
             password:'',
         },
         validationSchema:loginSchema,
-        onSubmit: (values) => {
-        console.log("Form Values:", values);
-    },
+        onSubmit: async (values, { setSubmitting, setFieldError }) => {
+        try {
+            const response = await axiosInstance.post('/auth/login', values);
+            const token = response.data.token; 
+            
+            if (token) {
+                localStorage.setItem('token', token);
+                navigate('/home'); 
+            } else {
+                alert("حصلت مشكلة: مفيش توكن رجع من السيرفر!");
+            }
+
+        } catch (error: any) {
+            console.error("Error logging in:", error);
+            setFieldError('email', 'Wrong Email or Password');
+        } finally {
+            setSubmitting(false);
+        }
+    }
     })
     return(
         <div>
