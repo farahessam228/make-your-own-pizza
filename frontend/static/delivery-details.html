@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Delivery Details · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header app-header--sticky-solid">
+        <div class="container container--mobile app-header__inner">
+          <span class="app-header__brand app-header__brand--sm">Deliveries</span>
+          <a href="login.html" class="text-muted" aria-label="Profile"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 20c1.6-4 5-6 8-6s6.4 2 8 6"/></svg></a>
+        </div>
+      </header>
+
+      <main class="container container--mobile app-main app-main--compact">
+        <a class="back-link" href="delivery-deliveries.html">
+          <svg class="icon icon--sm icon--flip" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          Back
+        </a>
+
+        <!-- PLACEHOLDER: order id -->
+        <h1 class="title-lg">Order #1842</h1>
+
+        <div class="card card--pad-sm mt-5">
+          <section class="card__section">
+            <p class="card__label">Customer</p>
+            <p class="delivery-card__customer">Karim Ahmed</p>
+            <p class="delivery-card__address mt-2 text-lead">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z M12 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+              14 Nile Corniche, Apt 6, Cairo
+            </p>
+          </section>
+
+          <section class="card__section">
+            <p class="card__label">Order</p>
+            <!-- TEMPLATE: repeat per line item -->
+            <p class="mt-2 text-lead">Custom Pizza × 2</p>
+          </section>
+
+          <section class="card__section">
+            <div class="row row--between">
+              <span class="text-lead font-semibold text-muted">Total</span>
+              <span class="mono-total">EGP 390</span>
+            </div>
+          </section>
+
+          <section class="card__section">
+            <div class="row row--between">
+              <span class="text-lead font-semibold text-muted">Status</span>
+              <span class="badge badge--primary">On the Way</span>
+            </div>
+          </section>
+        </div>
+
+        <!-- Hidden once the order is marked delivered -->
+        <button class="btn btn--primary btn--lg btn--block mt-6" type="button">
+          Mark as Delivered
+        </button>
+
+      </main>
+    </div>
+
+    <!-- CONFIRM DIALOG: remove [hidden] to show -->
+    <div class="modal" hidden>
+      <div class="modal__scrim"></div>
+      <div class="modal__panel" role="dialog" aria-modal="true">
+        <h2 class="modal__title">Confirm delivery?</h2>
+        <p class="modal__description">
+          Confirm that Order #1842 has been handed to the customer.
+        </p>
+        <div class="modal__actions">
+          <button class="btn btn--secondary" type="button">Go back</button>
+          <button class="btn btn--primary" type="button">Confirm Delivered</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST REGION -->
+    <div class="toast-region">
+      <div class="toast" hidden>Order marked as delivered</div>
+    </div>
+  </body>
+</html>

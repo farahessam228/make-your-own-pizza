@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Build Your Pizza · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header">
+        <div class="container app-header__inner">
+          <a class="app-header__brand" href="customer-builder.html">
+            Make Your Own Pizza
+          </a>
+          <nav class="app-nav">
+            <a class="app-nav__link is-active" href="customer-builder.html">Build Pizza</a>
+            <a class="app-nav__link" href="customer-orders.html">My Orders</a>
+            <a class="app-nav__link" href="customer-cart.html">Cart</a>
+            <a class="app-nav__link" href="customer-settings.html">Profile</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container app-main">
+        <div class="page-header">
+          <div>
+            <p class="page-header__eyebrow">Pizza Builder</p>
+            <h1 class="page-header__title">Build your pizza</h1>
+            <p class="page-header__description">
+              Make it exactly how you like it — tap toppings on and off and watch
+              the price update as you go.
+            </p>
+          </div>
+        </div>
+
+        <div class="builder">
+          <!-- TEMPLATE: ingredient tray, grouped by category.
+               Mark a selected ingredient with aria-pressed="true". -->
+          <div class="builder__tray tray">
+          <div>
+            <h3 class="tray__category-title">Meats</h3>
+            <div class="tray__grid">
+            <button class="ingredient" type="button" aria-pressed="true">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+              <span class="ingredient__name">Pepperoni</span>
+              <span class="ingredient__price">+EGP 20</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#8B4A2B"/></svg></span>
+              <span class="ingredient__name">Italian Sausage</span>
+              <span class="ingredient__price">+EGP 22</span>
+            </button>
+            </div>
+          </div>
+          <div>
+            <h3 class="tray__category-title">Veggies</h3>
+            <div class="tray__grid">
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c5 0 8 3.2 8 6.4 0 1.6-1.3 2.6-3 2.6H7c-1.7 0-3-1-3-2.6C4 6.2 7 3 12 3Z M9 12v6a3 3 0 0 0 6 0v-6" fill="#C9A987"/></svg></span>
+              <span class="ingredient__name">Mushroom</span>
+              <span class="ingredient__price">+EGP 15</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="#3A3230"/><circle cx="12" cy="12" r="2.6" fill="#FFF7ED"/></svg></span>
+              <span class="ingredient__name">Black Olives</span>
+              <span class="ingredient__price">+EGP 12</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="true">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+              <span class="ingredient__name">Fresh Basil</span>
+              <span class="ingredient__price">+EGP 10</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9c3-1 5 0 8 0s5-1 8 0c-1 3-1 5 0 7-3 1-5 0-8 0s-5 1-8 0c1-2 1-4 0-7Z" fill="#5FA857"/></svg></span>
+              <span class="ingredient__name">Bell Pepper</span>
+              <span class="ingredient__price">+EGP 14</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="#8E4B6B" stroke-width="2.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/></g></svg></span>
+              <span class="ingredient__name">Red Onion</span>
+              <span class="ingredient__price">+EGP 10</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#F0B93B"><circle cx="7" cy="8" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="17" cy="8" r="2"/><circle cx="6" cy="13" r="2"/><circle cx="12" cy="13" r="2"/><circle cx="18" cy="13" r="2"/><circle cx="8" cy="18" r="2"/><circle cx="14" cy="18" r="2"/></g></svg></span>
+              <span class="ingredient__name">Sweet Corn</span>
+              <span class="ingredient__price">+EGP 12</span>
+            </button>
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12c4-4 12-6 16-3-2 5-9 9-16 8-1-2-1-4 0-5Z" fill="#3F8A4C"/></svg></span>
+              <span class="ingredient__name">Jalapeño</span>
+              <span class="ingredient__price">+EGP 13</span>
+            </button>
+            </div>
+          </div>
+          <div>
+            <h3 class="tray__category-title">Cheese</h3>
+            <div class="tray__grid">
+            <button class="ingredient" type="button" aria-pressed="false">
+              <span class="ingredient__swatch"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#F4C45E"><circle cx="12" cy="12" r="6.5"/><circle cx="7" cy="8" r="2" opacity="0.6"/><circle cx="17" cy="15" r="2" opacity="0.6"/></g></svg></span>
+              <span class="ingredient__name">Extra Cheese</span>
+              <span class="ingredient__price">+EGP 18</span>
+            </button>
+            </div>
+          </div>
+          </div>
+
+          <div class="builder__preview">
+            <div class="builder__panel">
+              <div class="pizza">
+                <span class="pizza__crust" aria-hidden="true"></span>
+                <span class="pizza__sauce" aria-hidden="true"></span>
+                <span class="pizza__speckles" aria-hidden="true"></span>
+
+                <!-- TEMPLATE: one .pizza__topping per scattered piece; positions come from your layout helper -->
+                <span class="pizza__topping" style="left: 66.53%; top: 59.59%; --rotate: 274.5deg; --scale: 1.09"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+                <span class="pizza__topping" style="left: 45.89%; top: 62.78%; --rotate: 62.3deg; --scale: 0.96"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+                <span class="pizza__topping" style="left: 16.14%; top: 49.10%; --rotate: 231.8deg; --scale: 0.99"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+                <span class="pizza__topping" style="left: 42.52%; top: 42.83%; --rotate: 325.2deg; --scale: 1.10"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+                <span class="pizza__topping" style="left: 63.45%; top: 41.76%; --rotate: 19.9deg; --scale: 1.09"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+                <span class="pizza__topping" style="left: 79.60%; top: 59.33%; --rotate: 277.0deg; --scale: 1.01"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#C1432E"/><circle cx="12" cy="12" r="10" fill="none" stroke="#00000018" stroke-width="1.5"/><circle cx="9.5" cy="9" r="0.9" fill="#00000030"/><circle cx="14.5" cy="10.5" r="0.7" fill="#00000030"/><circle cx="11" cy="14.5" r="0.8" fill="#00000030"/><circle cx="15" cy="14.5" r="0.6" fill="#00000030"/></svg></span>
+                <span class="pizza__topping" style="left: 63.78%; top: 26.14%; --rotate: 156.3deg; --scale: 1.04"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+                <span class="pizza__topping" style="left: 77.07%; top: 60.84%; --rotate: 58.9deg; --scale: 0.86"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+                <span class="pizza__topping" style="left: 46.48%; top: 41.03%; --rotate: 188.6deg; --scale: 1.00"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+                <span class="pizza__topping" style="left: 19.21%; top: 47.23%; --rotate: 5.3deg; --scale: 1.11"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+                <span class="pizza__topping" style="left: 39.56%; top: 44.40%; --rotate: 315.1deg; --scale: 0.93"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+                <span class="pizza__topping" style="left: 46.73%; top: 61.86%; --rotate: 148.2deg; --scale: 1.04"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c6 2 8 8 4 15-2-1-4-3-5-6-3 3-6 2-8-1 4 0 6-2 7-5-2-1-3-3-3-6 2 2 3 2 5-3Z" fill="#4C7A3D"/></svg></span>
+              </div>
+
+              <!-- TEMPLATE: one .chip per selected topping.
+                   When none are selected show:
+                   <span class="text-sm text-muted">No toppings yet — pick a few.</span> -->
+              <div class="builder__chips">
+              <span class="chip">Pepperoni</span>
+              <span class="chip">Fresh Basil</span>
+              </div>
+
+              <div class="builder__total">
+                <span class="builder__total-label">Total</span>
+                <span class="builder__total-value">EGP 150</span>
+              </div>
+
+              <a class="btn btn--primary btn--lg btn--block mt-4" href="customer-cart.html">
+                Add to Cart
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Mobile tab bar — hidden from 768px up -->
+      <nav class="tabbar">
+        <a class="tabbar__link is-active" href="customer-builder.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 20H2L12 2Z M12 9v6 M9 13h6"/></svg>Build Pizza</a>
+        <a class="tabbar__link" href="customer-orders.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4z M4 10h16v10H4z M9 14h6"/></svg>My Orders</a>
+        <a class="tabbar__link" href="customer-cart.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg>Cart</a>
+        <a class="tabbar__link" href="customer-settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 20c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>Profile</a>
+      </nav>
+    </div>
+  </body>
+</html>

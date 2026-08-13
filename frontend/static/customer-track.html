@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Track Order · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header">
+        <div class="container app-header__inner">
+          <a class="app-header__brand" href="customer-builder.html">
+            Make Your Own Pizza
+          </a>
+          <nav class="app-nav">
+            <a class="app-nav__link" href="customer-builder.html">Build Pizza</a>
+            <a class="app-nav__link is-active" href="customer-orders.html">My Orders</a>
+            <a class="app-nav__link" href="customer-cart.html">Cart</a>
+            <a class="app-nav__link" href="customer-settings.html">Profile</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container container--tight app-main">
+        <div class="page-header">
+          <div>
+            <p class="page-header__eyebrow">Order Tracking</p>
+            <!-- PLACEHOLDER: order id -->
+            <h1 class="page-header__title">Order #1842</h1>
+          </div>
+        </div>
+
+        <div class="card card--pad mt-6">
+          <!-- TIMELINE: steps before the current one get .is-done,
+               the current one .is-active, later ones no modifier.
+               If the order is cancelled, replace the list with:
+               <p class="text-sm font-semibold text-error">This order has been cancelled.</p> -->
+          <ol class="timeline">
+            <li class="timeline__step is-done">
+              <div class="timeline__rail">
+                <span class="timeline__dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span>
+              <span class="timeline__line"></span>
+              </div>
+              <div class="timeline__body">
+                <p class="timeline__label">Order is being assigned</p>
+              </div>
+            </li>
+            <li class="timeline__step is-done">
+              <div class="timeline__rail">
+                <span class="timeline__dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span>
+              <span class="timeline__line"></span>
+              </div>
+              <div class="timeline__body">
+                <p class="timeline__label">Preparing</p>
+              </div>
+            </li>
+            <li class="timeline__step is-done">
+              <div class="timeline__rail">
+                <span class="timeline__dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span>
+              <span class="timeline__line"></span>
+              </div>
+              <div class="timeline__body">
+                <p class="timeline__label">Packing</p>
+              </div>
+            </li>
+            <li class="timeline__step is-done">
+              <div class="timeline__rail">
+                <span class="timeline__dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span>
+              <span class="timeline__line"></span>
+              </div>
+              <div class="timeline__body">
+                <p class="timeline__label">Waiting for Delivery</p>
+              </div>
+            </li>
+            <li class="timeline__step is-active">
+              <div class="timeline__rail">
+                <span class="timeline__dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z M16 18a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z M6 18h8l3-6h-4l-2-4H7"/></svg></span>
+              <span class="timeline__line"></span>
+              </div>
+              <div class="timeline__body">
+                <p class="timeline__label">On the Way</p>
+              <p class="timeline__note">In progress</p>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <div class="timeline__rail">
+                <span class="timeline__dot"><span class="timeline__pip"></span></span>
+              </div>
+              <div class="timeline__body">
+                <p class="timeline__label">Delivered</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Only shown while the order is still being assigned -->
+        <div class="mt-4">
+          <button class="btn btn--destructive" type="button">Cancel Order</button>
+          <p class="mt-2 text-xs text-muted">
+            Free cancellation while your order is still being assigned.
+          </p>
+        </div>
+
+      </main>
+
+      <!-- Mobile tab bar — hidden from 768px up -->
+      <nav class="tabbar">
+        <a class="tabbar__link" href="customer-builder.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 20H2L12 2Z M12 9v6 M9 13h6"/></svg>Build Pizza</a>
+        <a class="tabbar__link is-active" href="customer-orders.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4z M4 10h16v10H4z M9 14h6"/></svg>My Orders</a>
+        <a class="tabbar__link" href="customer-cart.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg>Cart</a>
+        <a class="tabbar__link" href="customer-settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 20c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>Profile</a>
+      </nav>
+    </div>
+
+    <!-- CONFIRM DIALOG: remove [hidden] to show -->
+    <div class="modal" hidden>
+      <div class="modal__scrim"></div>
+      <div class="modal__panel" role="dialog" aria-modal="true">
+        <h2 class="modal__title">Cancel this order?</h2>
+        <p class="modal__description">
+          Are you sure you want to cancel Order #1842?
+        </p>
+        <div class="modal__actions">
+          <button class="btn btn--secondary" type="button">Keep Order</button>
+          <button class="btn btn--destructive" type="button">Cancel Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST REGION: append .toast elements here -->
+    <div class="toast-region">
+      <div class="toast" hidden>Order cancelled</div>
+    </div>
+  </body>
+</html>

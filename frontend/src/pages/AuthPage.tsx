@@ -10,18 +10,16 @@ export default function AuthPage(){
     const [currentView, setCurrentView] = useState<'login' | 'signup' | 'otp'>('signup');
 
     return (
-    <div className="auth-container ">
-        <div className="pizza-ring ring-1"></div>
-        <div className="pizza-ring ring-2"></div>
-        <div className="pizza-ring ring-3"></div>
-        <div className="pizza-ring ring-4"></div>
-        <div className="pizza-ring ring-5"></div>
-        <div className="pizza-ring ring-6"></div>
+        <div className="auth-container ">
+            <div className="pizza-ring pizza-ring--1"></div>
+            <div className="pizza-ring pizza-ring--2"></div>
+            <div className="pizza-ring pizza-ring--3"></div>
+            <div className="pizza-ring pizza-ring--4"></div>
 
-        <div className="topping t-1"></div>
-        <div className="topping t-2"></div>
-        <div className="topping t-3"></div>
-        <div className="topping t-4"></div>
+            <div className="topping t-1"></div>
+            <div className="topping t-2"></div>
+            <div className="topping t-3"></div>
+            <div className="topping t-4"></div>
 
         {/*new rendering options  */}
         <div className={`form-card ${currentView=== "signup" ? 'signup-mode' : "login-mode"}`}>
@@ -48,6 +46,5 @@ export default function AuthPage(){
                 </button>
             )}
         </div>
-    </div>
     );
 }

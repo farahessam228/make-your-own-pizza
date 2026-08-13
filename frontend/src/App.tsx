@@ -7,19 +7,17 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import HomePage from './pages/HomePage'
 import AuthPage from './pages/AuthPage'
+import ProfilePage from './pages/ProfilePage'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
+		<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<AuthPage />} />
+					<Route path="/home" element={<HomePage />} />
+					<Route path="/profile" element={<ProfilePage />} />
+					<Route path="*" element={<Navigate to="/" replace />} />
+				</Routes>
+		</BrowserRouter>
   )
 }
-
-export default App

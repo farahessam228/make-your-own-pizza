@@ -1,0 +1,2222 @@
+/* ==========================================================================
+   Make Your Own Pizza — design system
+
+   Tailwind itself is imported once by index.css, which then imports this
+   file — do not re-import it here.
+
+   Everything below lives in @layer components so Tailwind's utilities
+   (which sit in the later `utilities` layer) can override these rules.
+   Unlayered CSS outranks every layer regardless of specificity, so leaving
+   this file unlayered would make `mx-auto`, `p-6`, `mt-*` etc. silently
+   lose against any component rule that touches the same property.
+
+   Sections
+     1. Tokens
+     2. Reset & base
+     3. Layout primitives
+     4. Layout shells (auth / customer / manager / delivery)
+     5. Components (button, card, badge, field, tabs, table, modal, toast…)
+     6. Feature blocks (pizza canvas, ingredients, timeline, orders)
+     7. Utilities
+     8. Responsive
+   ========================================================================== */
+
+@layer components {
+
+/* ------------------------------------------------------------------ */
+/* 1. Tokens                                                           */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Brand palette */
+  --color-primary: #e85d4a;
+  --color-primary-dark: #c94736;
+  --color-background: #fff7ed;
+  --color-surface: #fffcf8;
+  --color-text: #262321;
+  --color-text-muted: #746e68;
+  --color-accent-gold: #f4c45e;
+  --color-accent-green: #65a87c;
+  --color-border: #e9ded3;
+  --color-error: #c93f3f;
+
+  /* Derived tints (Tailwind's /opacity shorthand, spelled out) */
+  --color-primary-tint: rgba(232, 93, 74, 0.1);
+  --color-primary-ring: rgba(232, 93, 74, 0.15);
+  --color-gold-tint: rgba(244, 196, 94, 0.25);
+  --color-gold-text: #7a5a18;
+  --color-green-tint: rgba(101, 168, 124, 0.15);
+  --color-green-text: #3c6b4e;
+  --color-error-tint: rgba(201, 63, 63, 0.1);
+  --color-neutral-tint: rgba(0, 0, 0, 0.05);
+  --color-hover-tint: rgba(0, 0, 0, 0.03);
+  --color-scrim: rgba(38, 35, 33, 0.4);
+
+  /* Typography */
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-btn: 12px;
+  --radius-input: 11px;
+  --radius-chip: 22px;
+  --radius-modal: 20px;
+  --radius-full: 9999px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(38, 35, 33, 0.06);
+  --shadow-md: 0 6px 16px -6px rgba(38, 35, 33, 0.18);
+  --shadow-lg: 0 12px 28px -10px rgba(38, 35, 33, 0.25);
+  --shadow-xl: 0 24px 48px -16px rgba(38, 35, 33, 0.3);
+  --shadow-pizza: 0 18px 40px -12px rgba(38, 35, 33, 0.35);
+
+  /* Layout */
+  --page-max: 72rem;
+  /* 1152px — customer & manager shells */
+  --page-narrow: 42rem;
+  /* 672px  — checkout, manager detail */
+  --page-tight: 32rem;
+  /* 512px  — order detail, tracking */
+  --page-mobile: 36rem;
+  /* 576px  — delivery shell */
+  --header-h: 64px;
+
+  --transition: 150ms ease;
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. Reset & base                                                     */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+ol,
+ul {
+  margin: 0;
+}
+
+li {
+  padding: 2px;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 3. Layout primitives                                                */
+/* ------------------------------------------------------------------ */
+
+.page {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.container--narrow {
+  max-width: var(--page-narrow);
+}
+
+.container--tight {
+  max-width: var(--page-tight);
+}
+
+.container--mobile {
+  max-width: var(--page-mobile);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack--xs {
+  gap: 0.375rem;
+}
+
+.stack--sm {
+  gap: 0.75rem;
+}
+
+.stack--md {
+  gap: 1rem;
+}
+
+.stack--lg {
+  gap: 1.5rem;
+}
+
+.stack--xl {
+  gap: 2rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.row--between {
+  justify-content: space-between;
+}
+
+.row--wrap {
+  flex-wrap: wrap;
+}
+
+/* Page header — eyebrow / title / description / actions */
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-header__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-primary-dark);
+}
+
+.page-header__title {
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+.page-header__description {
+  margin-top: 0.375rem;
+  max-width: 36rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. Layout shells                                                    */
+/* ------------------------------------------------------------------ */
+
+/* --- Auth shell: dark brand panel + centred form ------------------- */
+
+.auth {
+  display: grid;
+  min-height: 100vh;
+}
+
+.auth__brand {
+  position: relative;
+  display: none;
+  /* revealed at lg */
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background: var(--color-text);
+  padding: 2.5rem;
+}
+
+.auth__glow {
+  position: absolute;
+  height: 24rem;
+  width: 24rem;
+  border-radius: var(--radius-full);
+  filter: blur(64px);
+  pointer-events: none;
+}
+
+.auth__glow--primary {
+  top: -6rem;
+  right: -6rem;
+  opacity: 0.4;
+  background: radial-gradient(circle, var(--color-primary), transparent 70%);
+}
+
+.auth__glow--gold {
+  bottom: -8rem;
+  left: -4rem;
+  opacity: 0.3;
+  background: radial-gradient(circle, var(--color-accent-gold), transparent 70%);
+}
+
+.auth__logo {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.auth__pitch {
+  position: relative;
+}
+
+.auth__pitch-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.auth__pitch-body {
+  margin-top: 1rem;
+  max-width: 24rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.auth__panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.auth__form-wrap {
+  width: 100%;
+  max-width: 24rem;
+}
+
+.auth__title {
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.auth__subtitle {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.auth__footnote {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* --- App header (customer / manager / delivery) -------------------- */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-background) 90%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.app-header--solid {
+  position: static;
+  background: var(--color-surface);
+  backdrop-filter: none;
+}
+
+.app-header--sticky-solid {
+  background: var(--color-surface);
+  backdrop-filter: none;
+}
+
+.app-header__inner {
+  display: flex;
+  height: var(--header-h);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header__brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.app-header__brand--sm {
+  font-size: 1.125rem;
+}
+
+.app-nav {
+  display: none;
+  /* revealed at md */
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.app-nav--always {
+  display: flex;
+}
+
+.app-nav__link {
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.app-nav__link:hover {
+  color: var(--color-text);
+}
+
+.app-nav__link.is-active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.app-main {
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+}
+
+.app-main--compact {
+  padding-top: 1.5rem;
+}
+
+.app-main--flush {
+  padding-block: 2rem;
+}
+
+/* Mobile bottom tab bar */
+.tabbar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.tabbar__link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding-block: 0.625rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.tabbar__link.is-active {
+  color: var(--color-primary);
+}
+
+.tabbar__link .icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* 5. Components                                                       */
+/* ------------------------------------------------------------------ */
+
+/* --- Icon --------------------------------------------------------- */
+
+.icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon--sm {
+  height: 1rem;
+  width: 1rem;
+}
+
+.icon--lg {
+  height: 4rem;
+  width: 4rem;
+  stroke-width: 2.5;
+}
+
+.icon--flip {
+  transform: rotate(180deg);
+}
+
+/* --- Button ------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding-inline: 1.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-btn);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color var(--transition), border-color var(--transition),
+    transform var(--transition), opacity var(--transition);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled,
+.btn.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Variants */
+.btn-large {
+  @apply mt-5 w-full;
+}
+
+.btn-group-small {
+  @apply mt-5 flex gap-3;
+}
+
+.btn-group-small .btn {
+  @apply flex-1;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(232, 93, 74, 0.2);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn--secondary {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover {
+  border-color: rgba(116, 110, 104, 0.4);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text);
+}
+
+.btn--ghost:hover {
+  background: var(--color-hover-tint);
+}
+
+.btn--destructive {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.btn--destructive:hover {
+  background: rgba(201, 63, 63, 0.9);
+}
+
+/* Sizes */
+.btn--sm {
+  height: 2.25rem;
+  padding-inline: 1rem;
+  font-size: 0.875rem;
+}
+
+.btn--lg {
+  height: 3rem;
+  padding-inline: 1.5rem;
+  font-size: 1rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* --- Link ---------------------------------------------------------- */
+
+.link {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* --- Card --------------------------------------------------------- */
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+.card--pad {
+  padding: 1.5rem;
+}
+
+.card--pad-sm {
+  padding: 1.25rem;
+}
+
+.card--fit {
+  height: fit-content;
+}
+
+/* Divided card sections — replaces divide-y */
+.card__section {
+  padding-block: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.card__section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.card__section:last-child {
+  padding-bottom: 0;
+}
+
+.card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* --- Badge -------------------------------------------------------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge--neutral {
+  background: var(--color-neutral-tint);
+  color: var(--color-text-muted);
+}
+
+.badge--primary {
+  background: var(--color-primary-tint);
+  color: var(--color-primary-dark);
+}
+
+.badge--gold {
+  background: var(--color-gold-tint);
+  color: var(--color-gold-text);
+}
+
+.badge--green {
+  background: var(--color-green-tint);
+  color: var(--color-green-text);
+}
+
+.badge--error {
+  background: var(--color-error-tint);
+  color: var(--color-error);
+}
+
+/* Small pill used in the manager header */
+.badge--role {
+  padding: 0.125rem 0.625rem;
+  font-weight: 700;
+  background: var(--color-primary-tint);
+  color: var(--color-primary-dark);
+}
+
+/* --- Field & input ------------------------------------------------ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+}
+
+.field__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.field__hint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.field__error {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-error);
+}
+
+.input {
+  height: 2.75rem;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  padding-inline: 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input::placeholder {
+  color: rgba(116, 110, 104, 0.7);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-ring);
+}
+
+.input--error {
+  border-color: var(--color-error);
+}
+
+.input-field-primary {
+  @apply h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base md:text-sm dark:bg-input/30;
+}
+
+/* Search input with a leading icon */
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+}
+
+.search__icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1rem;
+  width: 1rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.search .input {
+  padding-left: 2.25rem;
+}
+
+/* OTP boxes */
+.otp {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.otp__box {
+  height: 3.5rem;
+  width: 3rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.otp__box:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-ring);
+}
+
+/* Inline form error banner */
+.form-error {
+  border-radius: var(--radius-input);
+  background: var(--color-error-tint);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-error);
+}
+
+/* Selectable radio card (address / payment choices) */
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.option--center {
+  align-items: center;
+}
+
+.option input[type="radio"] {
+  margin-top: 0.25rem;
+  accent-color: var(--color-primary);
+}
+
+.option--center input[type="radio"] {
+  margin-top: 0;
+}
+
+.option:has(input:checked),
+.option.is-selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-ring);
+}
+
+.option__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.option__meta {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Nested "new address" form grid */
+.subform {
+  display: grid;
+  gap: 0.75rem;
+  border-radius: var(--radius-input);
+  background: var(--color-background);
+  padding: 1rem;
+}
+
+/* --- Tabs --------------------------------------------------------- */
+
+.tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  padding: 0.25rem;
+}
+
+.tabs__tab {
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.tabs__tab:hover {
+  color: var(--color-text);
+}
+
+.tabs__tab[aria-selected="true"],
+.tabs__tab.is-active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* --- Select / dropdown (manager controls) -------------------------- */
+
+.select {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.select__trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.select__trigger .icon {
+  height: 1rem;
+  width: 1rem;
+  color: var(--color-text-muted);
+}
+
+.select__menu {
+  position: absolute;
+  z-index: 10;
+  margin-top: 0.25rem;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Toggle by removing this class in your template/JS later */
+.select__menu[hidden] {
+  display: none;
+}
+
+.select__option {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0.625rem 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.select__option:hover {
+  background: var(--color-background);
+}
+
+.select__option.is-selected {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* --- Table (manager orders) --------------------------------------- */
+
+.table-wrap {
+  margin-top: 1.5rem;
+  overflow: hidden;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.table thead {
+  background: var(--color-surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.table th {
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+}
+
+.table tbody {
+  background: var(--color-background);
+}
+
+.table tbody tr {
+  border-top: 1px solid var(--color-border);
+}
+
+.table tbody tr:hover {
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+}
+
+.table td {
+  padding: 1rem 1.25rem;
+  color: var(--color-text);
+}
+
+.table td.is-muted {
+  color: var(--color-text-muted);
+}
+
+.table .col-actions {
+  text-align: right;
+}
+
+/* Progressive disclosure — these columns appear at sm / md (see §8) */
+.table .col-sm,
+.table .col-md {
+  display: none;
+}
+
+/* --- Native select ------------------------------------------------- */
+
+/* <select> styled to match .input, with a custom chevron. */
+.select-native {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23746E68' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+/* --- Input with a prefix / adornment ------------------------------- */
+
+.input-affix {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.input-affix__prefix {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.input--affixed {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Native colour picker trimmed to a round swatch */
+.color-swatch {
+  flex-shrink: 0;
+  height: 2.75rem;
+  width: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.color-swatch::-webkit-color-swatch-wrapper {
+  padding: 4px;
+}
+
+.color-swatch::-webkit-color-swatch {
+  border: 0;
+  border-radius: 7px;
+}
+
+.color-swatch::-moz-color-swatch {
+  border: 0;
+  border-radius: 7px;
+}
+
+/* --- Section heading (grouped lists) ------------------------------- */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.section-title__count {
+  border-radius: var(--radius-full);
+  background: var(--color-neutral-tint);
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* --- Add-ingredient form ------------------------------------------- */
+
+.ingredient-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.ingredient-form__full {
+  grid-column: 1 / -1;
+}
+
+.ingredient-form__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Checkbox + label on one line */
+.field--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field--inline input[type="checkbox"] {
+  height: 1rem;
+  width: 1rem;
+  accent-color: var(--color-primary);
+}
+
+.field--grow {
+  flex: 1;
+  min-width: 12rem;
+}
+
+/* --- Ingredient row (manager table) -------------------------------- */
+
+.ingredient-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ingredient-row__swatch {
+  display: flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  padding: 0.375rem;
+}
+
+.ingredient-row__swatch svg {
+  height: 100%;
+  width: 100%;
+}
+
+.ingredient-row__name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.ingredient-row__id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* --- Category chips ------------------------------------------------ */
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.category-chip__count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* --- Empty state --------------------------------------------------- */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.empty__icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.empty__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.empty__description {
+  max-width: 20rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.empty__action {
+  margin-top: 0.5rem;
+}
+
+/* --- Modal / confirm dialog --------------------------------------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--color-scrim);
+  backdrop-filter: blur(2px);
+}
+
+.modal__panel {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-modal);
+  background: var(--color-surface);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-xl);
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.modal__description {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.modal__actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* --- Toast --------------------------------------------------------- */
+
+.toast-region {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 1.25rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-text);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+.toast[hidden] {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. Feature blocks                                                   */
+/* ------------------------------------------------------------------ */
+
+/* --- Pizza canvas -------------------------------------------------- */
+
+.pizza {
+  position: relative;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+}
+
+.pizza__crust {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 32% 28%, #f5d48a 0%, #e3a94e 55%, #c9862f 100%);
+  box-shadow: var(--shadow-pizza);
+}
+
+.pizza__sauce {
+  position: absolute;
+  inset: 11%;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 35% 30%, #fbe18f 0%, #f4c45e 45%, #e2a93f 100%);
+  box-shadow: inset 0 6px 18px rgba(180, 90, 30, 0.25);
+}
+
+.pizza__speckles {
+  position: absolute;
+  inset: 11%;
+  border-radius: var(--radius-full);
+  opacity: 0.4;
+  background-image: radial-gradient(circle, rgba(196, 140, 40, 0.35) 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+/* One scattered topping piece.
+   Position each with inline style: left / top / --rotate / --scale. */
+.pizza__topping {
+  position: absolute;
+  height: 13%;
+  width: 13%;
+  transform: translate(-50%, -50%) rotate(var(--rotate, 0deg)) scale(var(--scale, 1));
+  filter: drop-shadow(0 1px 1px rgba(38, 35, 33, 0.15));
+}
+
+/* Small pizza thumbnail used in cart rows */
+.pizza--thumb {
+  height: 5rem;
+  width: 5rem;
+  max-width: none;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+}
+
+/* --- Ingredient tray ---------------------------------------------- */
+
+.tray {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tray__category-title {
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.tray__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ingredient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-chip);
+  background: var(--color-surface);
+  padding: 0.75rem;
+  text-align: center;
+  transition: transform var(--transition), border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.ingredient:hover {
+  transform: translateY(-2px);
+  border-color: rgba(116, 110, 104, 0.4);
+  box-shadow: var(--shadow-md);
+}
+
+.ingredient[aria-pressed="true"],
+.ingredient.is-selected {
+  transform: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(232, 93, 74, 0.2);
+}
+
+.ingredient__swatch {
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  padding: 0.625rem;
+  transition: transform var(--transition), background-color var(--transition);
+}
+
+.ingredient:hover .ingredient__swatch {
+  transform: scale(1.05);
+}
+
+.ingredient[aria-pressed="true"] .ingredient__swatch,
+.ingredient.is-selected .ingredient__swatch {
+  background: var(--color-primary-tint);
+  transform: scale(1.05);
+}
+
+.ingredient__swatch svg {
+  height: 100%;
+  width: 100%;
+}
+
+.ingredient__name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.ingredient__price {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* --- Builder layout ------------------------------------------------ */
+
+.builder {
+  margin-top: 2rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.builder__tray {
+  order: 2;
+}
+
+.builder__preview {
+  order: 1;
+}
+
+.builder__panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  padding: 1.5rem;
+}
+
+.builder__chips {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.chip {
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.builder__total {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.25rem;
+}
+
+.builder__total-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.builder__total-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* --- Cart ---------------------------------------------------------- */
+
+.cart {
+  margin-top: 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.cart-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.cart-item__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cart-item__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cart-item__name {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cart-item__toppings {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.cart-item__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-muted);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.icon-btn:hover {
+  color: var(--color-text);
+}
+
+.icon-btn--danger:hover {
+  background: var(--color-error-tint);
+  color: var(--color-error);
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding-inline: 0.25rem;
+}
+
+.qty__value {
+  width: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Summary rows (cart / checkout / payment) */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.summary-row--total {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* --- Order card (customer orders list) ----------------------------- */
+
+.order-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.order-card__id {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.order-card__title {
+  margin-top: 0.125rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.order-card__date {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.order-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-card__total {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* --- Order timeline ------------------------------------------------ */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline__step {
+  display: flex;
+  gap: 1rem;
+}
+
+.timeline__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline__dot {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.timeline__dot .icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.timeline__pip {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.timeline__line {
+  width: 2px;
+  flex: 1;
+  min-height: 2rem;
+  background: var(--color-border);
+}
+
+.timeline__body {
+  padding-bottom: 2rem;
+}
+
+.timeline__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.timeline__note {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Completed step */
+.timeline__step.is-done .timeline__dot {
+  border-color: var(--color-accent-green);
+  background: var(--color-accent-green);
+  color: #fff;
+}
+
+.timeline__step.is-done .timeline__line {
+  background: var(--color-accent-green);
+}
+
+.timeline__step.is-done .timeline__label {
+  color: var(--color-text);
+}
+
+/* Current step */
+.timeline__step.is-active .timeline__dot {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+  transform: scale(1.15);
+}
+
+.timeline__step.is-active .timeline__label {
+  color: var(--color-primary-dark);
+}
+
+/* Last step */
+.timeline__step:last-child .timeline__body {
+  padding-bottom: 0;
+}
+
+/* --- Detail rows (order details) ----------------------------------- */
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.detail-row__label {
+  color: var(--color-text-muted);
+}
+
+.detail-row__value {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* --- Delivery list ------------------------------------------------- */
+
+.delivery-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  transition: transform var(--transition);
+}
+
+.delivery-card:active {
+  transform: scale(0.99);
+}
+
+.delivery-card__id {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.delivery-card__customer {
+  margin-top: 0.125rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.delivery-card__address {
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.delivery-card__side {
+  text-align: right;
+}
+
+.delivery-card__total {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.delivery-card__chevron {
+  margin-left: auto;
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* --- Confirmation screen ------------------------------------------- */
+
+.confirmation {
+  margin-inline: auto;
+  display: flex;
+  max-width: 28rem;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 2.5rem;
+  text-align: center;
+}
+
+.confirmation__mark {
+  display: flex;
+  height: 10rem;
+  width: 10rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-green-tint);
+  color: var(--color-accent-green);
+}
+
+.confirmation__title {
+  margin-top: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.confirmation__subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.confirmation__order-id {
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.confirmation__amount {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.confirmation__actions {
+  margin-top: 2rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* --- Profile ------------------------------------------------------- */
+
+.profile-card {
+  @apply rounded-xl border border-border bg-card p-6 mt-8;
+}
+
+.field-group {
+  @apply flex flex-col gap-4
+}
+
+.avatar {
+  display: flex;
+  height: 3.5rem;
+  width: 3.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-tint);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.profile-card__name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.profile-card__email {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Demo credentials note on the sign-in page */
+.note {
+  margin-top: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  padding: 0.75rem 0.875rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. Utilities                                                        */
+/* ------------------------------------------------------------------ */
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-primary {
+  color: var(--color-primary-dark);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-success {
+  color: var(--color-accent-green);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-lead {
+  font-size: 0.9375rem;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.mono-total {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.title-lg {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. Responsive                                                       */
+/* ------------------------------------------------------------------ */
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 1.5rem;
+  }
+
+  .page-header__title {
+    font-size: 2.25rem;
+  }
+
+  .tray__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .subform {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .subform .field--span {
+    grid-column: span 2;
+  }
+
+  .ingredient-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .order-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .order-card__meta {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .table .col-sm {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-nav {
+    display: flex;
+  }
+
+  .tabbar {
+    display: none;
+  }
+
+  .app-main {
+    padding-bottom: 3rem;
+  }
+
+  .table .col-md {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1024px) {
+  .auth {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .auth__brand {
+    display: flex;
+  }
+
+  .builder {
+    grid-template-columns: 1fr 400px;
+  }
+
+  .builder__tray {
+    order: 1;
+  }
+
+  .builder__preview {
+    order: 2;
+  }
+
+  .builder__panel {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+
+  .cart {
+    grid-template-columns: 1fr 360px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+} /* end @layer components */

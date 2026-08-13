@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Payment · Make Your Own Pizza</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="app-header">
+        <div class="container app-header__inner">
+          <a class="app-header__brand" href="customer-builder.html">
+            Make Your Own Pizza
+          </a>
+          <nav class="app-nav">
+            <a class="app-nav__link" href="customer-builder.html">Build Pizza</a>
+            <a class="app-nav__link" href="customer-orders.html">My Orders</a>
+            <a class="app-nav__link is-active" href="customer-cart.html">Cart</a>
+            <a class="app-nav__link" href="customer-settings.html">Profile</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container container--tight app-main">
+        <div class="page-header">
+          <div>
+            <p class="page-header__eyebrow">Checkout</p>
+            <h1 class="page-header__title">Payment</h1>
+          </div>
+        </div>
+
+        <div class="card card--pad mt-8">
+          <!-- FORM: on success, go to customer-order-confirmation.html -->
+          <form class="stack stack--md" action="#" method="post">
+            <label class="field">
+              <span class="field__label">Card number</span>
+              <input class="input" type="text" inputmode="numeric" required
+                placeholder="4242 4242 4242 4242" />
+            </label>
+
+            <div class="grid-2">
+              <label class="field">
+                <span class="field__label">Expiry</span>
+                <input class="input" type="text" required placeholder="MM/YY" />
+              </label>
+              <label class="field">
+                <span class="field__label">CVV</span>
+                <input class="input" type="text" inputmode="numeric" required placeholder="123" />
+              </label>
+            </div>
+
+            <div class="summary-row summary-row--total">
+              <span>Total</span>
+              <span class="mono-total">EGP 500</span>
+            </div>
+
+            <button class="btn btn--primary btn--lg btn--block mt-1" type="submit">
+              Pay Securely
+            </button>
+          </form>
+        </div>
+
+      </main>
+
+      <!-- Mobile tab bar — hidden from 768px up -->
+      <nav class="tabbar">
+        <a class="tabbar__link" href="customer-builder.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 20H2L12 2Z M12 9v6 M9 13h6"/></svg>Build Pizza</a>
+        <a class="tabbar__link" href="customer-orders.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4z M4 10h16v10H4z M9 14h6"/></svg>My Orders</a>
+        <a class="tabbar__link is-active" href="customer-cart.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg>Cart</a>
+        <a class="tabbar__link" href="customer-settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 20c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>Profile</a>
+      </nav>
+    </div>
+  </body>
+</html>
