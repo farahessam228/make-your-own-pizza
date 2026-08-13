@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../schemas/validationSchemas";
-export default function SignUpForm(){
+import axiosInstance from "../../api/axiosConfig";
+
+interface SignUpFormProps {
+    onSignUpSuccess: () => void;
+}
+export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps){
     const formik=useFormik({
         initialValues: {
             firstName:'',
@@ -13,9 +18,23 @@ export default function SignUpForm(){
             role:2
         },
     validationSchema: signUpSchema, 
-    onSubmit: (values) => {
-        console.log("Form Values:", values);
-    },
+    onSubmit: async (values, { setSubmitting, setFieldError }) => {
+        try {
+            const response = await axiosInstance.post('/auth/register', values); //auth/register place holder lhd m elbackend yb3t el api
+            console.log( response.data);
+            onSignUpSuccess();
+
+        } catch (error: any) {
+            console.error(error);
+            if (error.response && error.response.data && error.response.data.message) {
+                alert(error.response.data.message); 
+            } else {
+                alert("signup was unsuccessful, try again");//hattbdl b setFieldError
+            }
+        } finally {
+            setSubmitting(false);
+        }
+    }
     })
     
     return(
