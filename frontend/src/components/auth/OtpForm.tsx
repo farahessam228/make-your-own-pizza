@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import React from "react";
+import axiosInstance from "../../api/axiosConfig";
 
-export default function OtpForm(){
+interface OtpFormProps {
+    onVerifySuccess: () => void;
+}
+export default function OtpForm({ onVerifySuccess }: OtpFormProps){
     const [otp,setOtp]=useState(['','','','','','']);
     // using useRef for auto focus
     const inputRefs=useRef<(HTMLInputElement | null)[]>([]);
@@ -24,9 +28,24 @@ export default function OtpForm(){
         }
     }
     //hanb3t el otp llbackend b'a k rakam wahed
-    const handleSubmit=(e:React.SubmitEvent<HTMLFormElement>)=>{
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const finalOtpCode = otp.join(''); 
+        if (finalOtpCode.length < 6) {
+            alert("Please enter the full 6-digit code.");
+            return; 
+        }
+
+        try {
+            const response = await axiosInstance.post('/auth/verify', { otp: finalOtpCode });
+            
+            console.log("Success!", response.data);
+            onVerifySuccess();
+
+        } catch (error: any) {
+            console.error("Error from backend:", error);
+            alert("Invalid or expired OTP code. Please try again.");
+        }
     }
     return(
         <form className="otp-form-container" onSubmit={handleSubmit}>

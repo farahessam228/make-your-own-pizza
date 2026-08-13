@@ -3,6 +3,8 @@ import LoginForm from "../components/auth/LoginForm";
 import SignUpForm from "../components/auth/SignUpForm";
 import OtpForm from "../components/auth/OtpForm";
 import './AuthPage.css'
+
+
 export default function AuthPage(){
     // mohem, new view for the OTP
     const [currentView, setCurrentView] = useState<'login' | 'signup' | 'otp'>('signup');
@@ -24,8 +26,8 @@ export default function AuthPage(){
         {/*new rendering options  */}
         <div className={`form-card ${currentView=== "signup" ? 'signup-mode' : "login-mode"}`}>
             {currentView === 'login' && <LoginForm/>}
-            {currentView === 'signup' && <SignUpForm/>}
-            {currentView === 'otp' && <OtpForm/>}
+            {currentView === 'signup' && <SignUpForm onSignUpSuccess={() => setCurrentView('otp')} />}
+            {currentView === 'otp' && <OtpForm onVerifySuccess={() => setCurrentView('login')} />}
 
             {currentView!=="otp"&&(
                 <div className="text-center mt-3 full-width">
