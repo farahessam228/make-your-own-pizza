@@ -12,18 +12,17 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             firstName: '',
             lastName: '',
             email: '',
-            phoneNumber: '',
             password: '',
             confirmPassword: '',
+            phone: '',
             role: 2
         },
         validationSchema: signUpSchema,
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
             try {
-                const response = await axiosInstance.post('/auth/register', values); //auth/register place holder lhd m elbackend yb3t el api
+                const response = await axiosInstance.post('/Auth/register', values); //auth/register place holder lhd m elbackend yb3t el api
                 console.log(response.data);
                 onSignUpSuccess();
-
             } catch (error: any) {
                 console.error(error);
                 if (error.response && error.response.data && error.response.data.message) {
@@ -84,13 +83,13 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                     <label>Phone Number</label>
                     <input
                         type="tel"
-                        name="phoneNumber"
+                        name="phone"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.phoneNumber}
+                        value={formik.values.phone}
                     />
-                    {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                        <div style={{ color: 'red' }}>{formik.errors.phoneNumber}</div>
+                    {formik.touched.phone && formik.errors.phone ? (
+                        <div style={{ color: 'red' }}>{formik.errors.phone}</div>
                     ) : null}
                 </div>
                 <div>

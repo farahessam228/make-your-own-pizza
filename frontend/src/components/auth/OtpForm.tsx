@@ -37,7 +37,7 @@ export default function OtpForm({ onVerifySuccess }: OtpFormProps){
         }
 
         try {
-            const response = await axiosInstance.post('/auth/verify', { otp: finalOtpCode });
+            const response = await axiosInstance.post('/Verify/verify', { otp: finalOtpCode });
             
             console.log("Success!", response.data);
             onVerifySuccess();
