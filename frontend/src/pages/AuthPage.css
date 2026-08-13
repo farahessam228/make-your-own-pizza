@@ -9,6 +9,12 @@
     margin: 0;
     padding: 0;
 }
+.text-center {
+    text-align: center;
+}
+.mt-3 {
+    margin-top: 16px;
+}
 .auth-container{
     /* background-color:#FFF7ED ; */
     background-color: #2b1308; 
@@ -197,4 +203,46 @@
 
 .role-btn:hover:not(.active) {
     background-color: #fbedda;
+}
+
+/* otp styling */
+
+/* حاوية مربعات الـ OTP عشان يبقوا جنب بعض وفي النص */
+.otp-inputs-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row !important;
+    gap: 12px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* تنسيق المربع الواحد */
+.otp-input {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 1px solid #EECDAE;
+    background-color: #FBEDDA;
+    color: #2b1308;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+/* لما اليوزر يقف جوه المربع */
+.otp-input:focus {
+    border-color: #d35400;
+    box-shadow: 0 0 8px rgba(211, 84, 0, 0.25);
+    background-color: #fff;
+    transform: translateY(-2px); /* نطة خفيفة لفوق تدي شكل حلو */
+}
+
+/* تنسيق كلمة Resend اللي تحت */
+.resend-text {
+    color: rgba(92, 44, 22, 0.7);
+    font-size: 0.9rem;
 }
