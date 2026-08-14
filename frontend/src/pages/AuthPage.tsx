@@ -8,6 +8,7 @@ import './AuthPage.css'
 export default function AuthPage() {
     // mohem, new view for the OTP
     const [currentView, setCurrentView] = useState<'login' | 'signup' | 'otp'>('signup');
+    const [savedEmail, setSavedEmail] = useState('');
 
     return (
         <div className="auth-container ">
@@ -21,11 +22,23 @@ export default function AuthPage() {
             <div className="topping t-3"></div>
             <div className="topping t-4"></div>
 
-            {/*new rendering options  */}
             <div className={`form-card ${currentView === "signup" ? 'signup-mode' : "login-mode"}`}>
+                
                 {currentView === 'login' && <LoginForm />}
-                {currentView === 'signup' && <SignUpForm onSignUpSuccess={() => setCurrentView('otp')} />}
-                {currentView === 'otp' && <OtpForm onVerifySuccess={() => setCurrentView('login')} />}
+                {currentView === 'signup' && (
+                    <SignUpForm 
+                        onSignUpSuccess={(emailFromChild) => {
+                            setSavedEmail(emailFromChild);
+                            setCurrentView('otp');
+                        }} 
+                    />
+                )}
+                {currentView === 'otp' && (
+                    <OtpForm 
+                        email={savedEmail} 
+                        onVerifySuccess={() => setCurrentView('login')} 
+                    />
+                )}
 
                 {currentView !== "otp" && (
                     <div className="text-center mt-3 full-width">
@@ -39,11 +52,6 @@ export default function AuthPage() {
                             </button>
                         </p>
                     </div>
-                )}
-                {currentView === 'signup' && (
-                    <button onClick={() => setCurrentView('otp')} style={{ marginTop: '10px' }}>
-                        Go to OTP (Test)
-                    </button>
                 )}
             </div>
         </div>

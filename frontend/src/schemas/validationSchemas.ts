@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-const passwordCheck = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
+const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 export const signUpSchema = Yup.object({
     firstName: Yup.string().min(3).required("Your First Name is Required!"),
     lastName: Yup.string().min(3).required("Your Last Name is Required!"),

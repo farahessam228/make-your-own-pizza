@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../schemas/validationSchemas";
 import axiosInstance from "../../api/axiosConfig";
-
+import axios from "axios";
 interface SignUpFormProps {
-    onSignUpSuccess: () => void;
+    onSignUpSuccess: (email: string) => void;
 }
 export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const formik = useFormik({
@@ -20,18 +20,23 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
         validationSchema: signUpSchema,
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
             try {
-                const response = await axiosInstance.post('/Auth/register', values); //auth/register place holder lhd m elbackend yb3t el api
+                const response = await axiosInstance.post('/Auth/register', values); 
                 console.log(response.data);
-                onSignUpSuccess();
-            } catch (error: any) {
-                console.error(error);
-                if (error.response && error.response.data && error.response.data.message) {
-                    alert(error.response.data.message);
-                } else {
-                    alert("signup was unsuccessful, try again");//hattbdl b setFieldError
-                }
+                // We pass the email from Formik's values out of the component!
+                onSignUpSuccess(values.email);
+            } catch (error){
+                if (axios.isAxiosError(error)) {
+            if (error.response && error.response.data && error.response.data.message) {
+            alert(error.response.data.message);
+            } else {
+            setFieldError('email', 'signup was unsuccessful, try again'); 
+            }
+            } 
+            else {
+                setFieldError('email', 'An unexpected error occurred');
+            }
             } finally {
-                setSubmitting(false);
+            setSubmitting(false);
             }
         }
     })
