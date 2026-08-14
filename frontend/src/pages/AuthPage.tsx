@@ -6,7 +6,6 @@ import './AuthPage.css'
 
 
 export default function AuthPage() {
-    // mohem, new view for the OTP
     const [currentView, setCurrentView] = useState<'login' | 'signup' | 'otp'>('signup');
     const [savedEmail, setSavedEmail] = useState('');
 
