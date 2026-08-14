@@ -3,9 +3,12 @@ import { useFormik } from "formik";
 import { signUpSchema } from "../../schemas/validationSchemas";
 import axiosInstance from "../../api/axiosConfig";
 import axios from "axios";
+import toast from "react-hot-toast";
+
 interface SignUpFormProps {
     onSignUpSuccess: (email: string) => void;
 }
+
 export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const formik = useFormik({
         initialValues: {
@@ -22,25 +25,27 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             try {
                 const response = await axiosInstance.post('/Auth/register', values); 
                 console.log(response.data);
-                // We pass the email from Formik's values out of the component!
+                // We pass the email from Formik's values out of the component
                 onSignUpSuccess(values.email);
             } catch (error){
-                if (axios.isAxiosError(error)) {
-            if (error.response && error.response.data && error.response.data.message) {
-            alert(error.response.data.message);
-            } else {
-            setFieldError('email', 'signup was unsuccessful, try again'); 
+                if(axios.isAxiosError(error)){
+                    const backendMessage=error.response?.data?.message;
+                    if (backendMessage) {toast.error(backendMessage);}
+                    else{
+                        toast.error("SignUp failed, Please try again")
+                        setFieldError("email", "Signup was unsuccessful, try again");
+                    }
+                }
+                else{
+                    console.error(error);
+                    toast.error("An unexpected error occured");
+                }
             }
-            } 
-            else {
-                setFieldError('email', 'An unexpected error occurred');
-            }
-            } finally {
+        finally {
             setSubmitting(false);
-            }
+        }
         }
     })
-
     return (
         <div>
             <h2>Sign Up</h2>

@@ -10,7 +10,6 @@ interface OtpFormProps {
 
 export default function OtpForm({ email, onVerifySuccess }: OtpFormProps){
     const [otp, setOtp] = useState(['','','','','','']);
-    
     const [isSubmitting, setSubmitting] = useState(false);
     const [fieldError, setFieldError] = useState('');
 
@@ -43,8 +42,8 @@ export default function OtpForm({ email, onVerifySuccess }: OtpFormProps){
             alert("Please enter the full 6-digit code.");
             return; 
         }
-        setSubmitting(true); // Tell the app we are loading
-        setFieldError(''); // Clear any old errors before trying again
+        setSubmitting(true); 
+        setFieldError('');
         try {
             const response = await axiosInstance.post('/Verify/verify', { otp: finalOtpCode ,email:email});
             console.log("Success!", response.data);

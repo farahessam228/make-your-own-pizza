@@ -1,8 +1,8 @@
-import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas/validationSchemas";
 import axiosInstance from "../../api/axiosConfig";
+import toast from 'react-hot-toast';
 
 export default function LoginForm(){
     const navigate = useNavigate();
@@ -15,17 +15,15 @@ export default function LoginForm(){
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
         try {
             const response = await axiosInstance.post('/Auth/login', values);
-            console.log(values);
             const token = response.data.accessToken; 
-            
             if (token) {
                 localStorage.setItem('token', token);
+                toast.success("Welcome Back!")
                 navigate('/home'); 
             } else {
-                alert("MA7SHY WAR2 3ENB")
+                toast.error("Something Went Wrong, Please Try Again!")
             }
-
-        } catch (error: any) {
+        } catch (error) {
             console.error("Error logging in:", error);
             setFieldError('email', 'Wrong Email or Password');
         } finally {
