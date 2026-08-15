@@ -24,7 +24,8 @@ namespace MakeYourOwnPizza.Controllers
         {
             var users = await _service.GetAllAsync();
             var dtos = users.Select(u => new UserDto
-            
+            {
+                Id = u.Id,
                 firstName = u.firstName,
                 lastName = u.lastName,
                 email = u.email,
@@ -62,6 +63,7 @@ namespace MakeYourOwnPizza.Controllers
             if (u == null) return NotFound();
             var dto = new UserDto
             {
+                Id = u.Id,
                 firstName = u.firstName,
                 lastName = u.lastName,
                 email = u.email,
