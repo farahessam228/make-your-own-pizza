@@ -38,7 +38,7 @@ namespace MakeYourOwnPizza.Controllers
 
         // Create endpoint intentionally omitted. Use AuthController / AuthService for registration.
 
-        [HttpPut]
+        [HttpPut("me")]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto dto)
         {
             // extract user id from token claims
