@@ -4,6 +4,8 @@ using MakeYourOwnPizza.Models;
 using MakeYourOwnPizza.Dtos;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Security.Claims;
 
 namespace MakeYourOwnPizza.Controllers
 {
@@ -21,31 +23,65 @@ namespace MakeYourOwnPizza.Controllers
         public async Task<IActionResult> GetAll()
         {
             var users = await _service.GetAllAsync();
-            return Ok(users);
+            var dtos = users.Select(u => new UserDto
+            {
+                Id = u.Id,
+                firstName = u.firstName,
+                lastName = u.lastName,
+                email = u.email,
+                phone = u.phone,
+
+            }).ToList();
+
+            return Ok(dtos);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
-        {
-            var user = await _service.GetByIdAsync(id);
-            if (user == null) return NotFound();
-            return Ok(user);
-        }
 
         // Create endpoint intentionally omitted. Use AuthController / AuthService for registration.
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserDto dto)
+        [HttpPut("me")]
+        public async Task<IActionResult> Update([FromBody] UpdateUserDto dto)
         {
-            var updated = await _service.UpdateAsync(id, dto);
+            // extract user id from token claims
+            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(idClaim)) return Unauthorized();
+            if (!Guid.TryParse(idClaim, out var userId)) return Unauthorized();
+
+            var updated = await _service.UpdateAsync(userId, dto);
             if (!updated) return NotFound();
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe()
         {
-            var deleted = await _service.DeleteAsync(id);
+            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(idClaim)) return Unauthorized();
+            if (!Guid.TryParse(idClaim, out var userId)) return Unauthorized();
+
+            var u = await _service.GetByIdAsync(userId);
+            if (u == null) return NotFound();
+            var dto = new UserDto
+            {
+                Id = u.Id,
+                firstName = u.firstName,
+                lastName = u.lastName,
+                email = u.email,
+                phone = u.phone,
+                
+            };
+            return Ok(dto);
+        }
+
+
+        [HttpDelete("me")]
+        public async Task<IActionResult> DeleteMe()
+        {
+            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(idClaim)) return Unauthorized();
+            if (!Guid.TryParse(idClaim, out var userId)) return Unauthorized();
+
+            var deleted = await _service.DeleteAsync(userId);
             if (!deleted) return NotFound();
             return NoContent();
         }
