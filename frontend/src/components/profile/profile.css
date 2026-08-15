@@ -1,0 +1,259 @@
+/* ---- page ---- */
+.profile-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+}
+
+.profile-page-eyebrow {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(92, 44, 22, 0.55);
+}
+
+.profile-page-title {
+    margin: 4px 0 24px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: #2b1308;
+}
+
+/* ---- shell ---- */
+.profile-shell {
+    max-width: 720px;
+    flex: 1;
+    margin: 0 auto;
+    background: #FFF7ED;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(92, 44, 22, 0.12);
+    overflow: hidden;
+    font-family: var(--font-sans);
+}
+
+/* ---- identity header ---- */
+.profile-identity {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 28px;
+    background: linear-gradient(135deg, #8B3A10, #C4621A);
+    color: #FFF7ED;
+}
+
+.profile-data h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+.profile-data p {
+    margin: 4px 0 0;
+    opacity: 0.85;
+    font-size: 0.95rem;
+}
+
+/* ---- pizza avatar ---- */
+.pizza-avatar {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+}
+
+.pizza-avatar .pizza-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+.pizza-avatar .pizza-ring--1 {
+    width: 96px;
+    height: 96px;
+    background: #8B3A10;
+}
+
+.pizza-avatar .pizza-ring--2 {
+    width: 84px;
+    height: 84px;
+    background: #C4621A;
+}
+
+.pizza-avatar .pizza-ring--3 {
+    width: 70px;
+    height: 70px;
+    background: #D18339;
+}
+
+.pizza-avatar .pizza-ring--4 {
+    width: 56px;
+    height: 56px;
+    background: #CAA351;
+}
+
+.pizza-avatar .topping {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.pizza-avatar .t-1 {
+    top: 32%;
+    left: 36%;
+    background: rgba(192, 57, 43, 0.75);
+}
+
+.pizza-avatar .t-2 {
+    top: 58%;
+    left: 60%;
+    background: rgba(15, 157, 74, 0.75);
+}
+
+.pizza-avatar .t-3 {
+    top: 42%;
+    left: 62%;
+    background: rgba(241, 196, 15, 0.8);
+}
+
+.pizza-avatar .t-4 {
+    top: 62%;
+    left: 34%;
+    background: rgba(144, 12, 63, 0.75);
+}
+
+.pizza-avatar-initials {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b1308;
+    z-index: 6;
+}
+
+/* ---- sections ---- */
+.profile-section {
+    padding: 24px 28px;
+    border-top: 1px solid #EECDAE;
+}
+
+.profile-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.profile-section-title {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(92, 44, 22, 0.6);
+}
+
+/* ---- info grid ---- */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.info-row--full {
+    grid-column: 1 / -1;
+}
+
+.info-row>span:first-child {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(92, 44, 22, 0.55);
+}
+
+.info-row-value {
+    font-size: 1rem;
+    color: #2b1308;
+    word-break: break-word;
+}
+
+.info-row input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border: 1px solid #EECDAE;
+    border-radius: 8px;
+    background: #FBEDDA;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #2b1308;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.info-row input:focus {
+    border-color: #d35400;
+}
+
+/* ---- buttons ---- */
+.profile-shell button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #d35400;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.profile-shell button:hover {
+    background: #b94600;
+}
+
+.profile-section-header button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+.btn-group-small {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.btn-group-small button:last-child {
+    background: transparent;
+    color: #8B3A10;
+    border: 1px solid #EECDAE;
+}
+
+.btn-group-small button:last-child:hover {
+    background: rgba(211, 84, 0, 0.08);
+}
+
+/* ---- responsive ---- */
+@media (max-width: 560px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-identity {
+        flex-direction: column;
+        text-align: center;
+    }
+}

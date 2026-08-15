@@ -15,7 +15,7 @@ export default function ProfileCard({ firstName, lastName, email, phone, edit, d
     const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase()
     return (
         <>
-            <div className="profile-card">
+            <div className="profile-header">
                 <div className="flex items-center gap-4">
                     <div className="h-14 w-14 rounded-full bg-primary/10 text-primary flex items-center text-center font-display text-xl justify-center font-bold shrink-0">
                         {initials}

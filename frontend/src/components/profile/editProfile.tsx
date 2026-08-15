@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
-import { ProfileField } from "@/components/ui/field"
 import { useState } from "react"
+import "./profile.css"
 
 type EditProfileProps = {
     firstName: string
@@ -21,13 +21,24 @@ export default function EditProfile({ firstName: initialFirstName, lastName: ini
     return (
         <>
             <div className="profile-card">
-                <div className="field-group">
-                    <ProfileField label="First Name" value={firstName} onChange={setFirstName} />
-                    <ProfileField label="Last Name" value={lastName} onChange={setLastName} />
-                    <ProfileField label="Phone" value={phone} type="tel" onChange={setPhone} />
-                </div>
+                <form>
+                    <div>
+                        <label>First Name</label>
+                        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    </div>
 
-                <div className="btn-group-small">
+                    <div>
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    </div>
+
+                    <div>
+                        <label>Phone</label>
+                        <input type="tel" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    </div>
+                </form>
+
+                <div>
                     <Button
                         onClick={() => handleSave(firstName, lastName, phone)}
                         disabled={isFieldEmpty(firstName) ||
