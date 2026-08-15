@@ -14,9 +14,10 @@ namespace MakeYourOwnPizza.Data.Configurations
             builder.HasIndex(os => new
             {
                 os.orderId,
-                os.createdAt
+                os.createdAt,
+                os.Id
             })
-            .IsDescending(false, true);
+            .IsDescending(false, true, true);
             builder.HasOne(os => os.order)
                 .WithMany(o => o.orderStages)
                 .HasForeignKey(os => os.orderId)
