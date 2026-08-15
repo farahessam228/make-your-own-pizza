@@ -13,6 +13,8 @@ namespace MakeYourOwnPizza.Data.Configurations
             builder.Property(o => o.totalPrice).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(o => o.paymentMethod).IsRequired().HasConversion<string>();
             builder.Property(o => o.estimatedDelivery).IsRequired();
+            builder.Property(o => o.isActive).IsRequired();
+            builder.HasIndex(o => new { o.userId, o.isActive });
             builder.HasMany(o => o.payments)
                 .WithOne(p => p.order)
                 .HasForeignKey(p => p.orderId)
