@@ -1,5 +1,3 @@
-import OrderHistory from "../Customer History/OrderHistory"
-
 export type EditableField = "firstName" | "lastName" | "phone"
 
 type ProfileDetailsProps = {
@@ -106,10 +104,6 @@ export default function ProfileDetails({ firstName, lastName, email, phone, role
                     )}
 
                 </div>
-            </div>
-
-            <div>
-                <OrderHistory />
             </div>
         </>
     )

@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react"
 import ProfileDetails, { type EditableField } from "@/components/profile/ProfileDetails"
 import '../components/profile/profile.css'
+import Address from "@/components/profile/address"
 import Navbar from "@/components/ui/navbar"
+import axiosInstance from "@/api/axiosConfig"
 
 type ProfileProps = {
-    id?: string
     firstName: string
     lastName: string
     email: string
     phone: string
     role: number
     isActive: boolean
+    address: {
+        city: string
+        street: string
+        district: string
+        building_no: string
+        floor_no: string
+        apt_no: string
+    }
 }
 
 // Only these three are accepted by the backend's UpdateUserDto.
@@ -18,12 +27,20 @@ type ProfileDraft = Pick<ProfileProps, "firstName" | "lastName" | "phone">
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState<ProfileProps>({
-        firstName: "Karim",
-        lastName: "Ahmed",
-        email: "karim@example.com",
+        firstName: "firstname",
+        lastName: "lastname",
+        email: "[EMAIL_ADDRESS]",
         phone: "01000661832",
         role: 2,
         isActive: true,
+        address: {
+            city: "Cairo",
+            street: "123 Main St",
+            district: "123 Main St",
+            building_no: "123",
+            floor_no: "123",
+            apt_no: "123",
+        }
     })
     const [isEditing, setIsEditing] = useState(false)
     const [draft, setDraft] = useState<ProfileDraft>({
@@ -62,7 +79,7 @@ export default function ProfilePage() {
     }
 
     async function handleSave() {
-        const saved = await saveProfile(profile.id, draft)
+        const saved = await saveProfile(draft)
         if (saved) {
             setProfile((current) => ({ ...current, ...draft }))
             setIsEditing(false)
@@ -90,6 +107,14 @@ export default function ProfilePage() {
                     onSave={handleSave}
                     onDelete={() => { }}
                 />
+                <Address
+                    city={profile.address.city}
+                    street={profile.address.street}
+                    district={profile.address.district}
+                    building_no={profile.address.building_no}
+                    floor_no={profile.address.floor_no}
+                    apt_no={profile.address.apt_no}
+                />
             </div>
         </>
     )
@@ -97,34 +122,19 @@ export default function ProfilePage() {
 
 const API_BASE = "http://localhost:3000/api/user"
 
+
 async function getProfile(): Promise<ProfileProps | undefined> {
     try {
-        const response = await fetch(API_BASE)
-        const data = await response.json()
-        if (!response.ok) {
-            throw new Error(data.message)
-        }
-        return data
+        const response = await axiosInstance.get<ProfileProps>("/user/me")
+        return response.data
     } catch (error) {
         console.error(error)
     }
 }
 
-async function saveProfile(id: string | undefined, draft: ProfileDraft): Promise<boolean> {
-    if (!id) {
-        console.error("Cannot save: no user id. GET /api/user must return the signed-in user.")
-        return false
-    }
+async function saveProfile(draft: ProfileDraft): Promise<boolean> {
     try {
-        // UserController exposes PUT /api/user/{id} — there is no PATCH route.
-        const response = await fetch(`${API_BASE}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(draft),
-        })
-        if (!response.ok) {
-            throw new Error(`Update failed with ${response.status}`)
-        }
+        await axiosInstance.put("/user/me", draft)
         return true
     } catch (error) {
         console.error(error)

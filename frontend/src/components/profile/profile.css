@@ -153,10 +153,9 @@
 
 .profile-section-title {
     margin: 0;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(92, 44, 22, 0.6);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: #2b1308;
 }
 
 /* ---- info grid ---- */
@@ -256,4 +255,129 @@
         flex-direction: column;
         text-align: center;
     }
+}
+
+.address-section {
+    max-width: 720px;
+    flex: 1;
+    padding: 20px;
+    margin: 20px auto;
+    background: #FFF7ED;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(92, 44, 22, 0.12);
+    overflow: hidden;
+    font-family: var(--font-sans);
+}
+
+.address-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.address-section button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #d35400;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.address-section .add-btn {
+    padding: 8px 16px;
+    margin-left: auto;
+    font-size: 0.85rem;
+}
+
+.address-section-header h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: #2b1308;
+}
+
+
+
+.address-actions-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.address-actions-btn button {
+    padding: 8px 16px;
+    width: 80px;
+    font-size: 0.85rem;
+}
+
+.address-actions-btn button:last-child {
+    background: transparent;
+    color: #8B3A10;
+    border: 1px solid #EECDAE;
+}
+
+.address-actions-btn button:last-child:hover {
+    background: rgba(211, 84, 0, 0.08);
+}
+
+
+.address-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.address-box-list {
+    display: flex;
+    justify-content: space-between;
+    flex: 4;
+}
+
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.address-section .address-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    height: fit-content;
+    background-color: #faede3;
+    border: 1px solid #EECDAE;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 6px rgba(92, 44, 22, 0.08);
+}
+
+.address-list p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #2b1308;
+}
+
+.address-list p:first-child {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.address-box button:hover {
+    background: #8B3A10;
+}
+
+.address-section .address-box ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
