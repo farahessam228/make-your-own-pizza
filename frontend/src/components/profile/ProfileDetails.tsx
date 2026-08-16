@@ -1,6 +1,6 @@
 export type EditableField = "firstName" | "lastName" | "phone"
 
-type ProfileDetailsProps = {
+type ProfileValues = {
 
     firstName: string
     lastName: string
@@ -8,11 +8,14 @@ type ProfileDetailsProps = {
     phone: string
     role: number
     isActive: boolean
+}
+
+type ProfileDetailsProps = ProfileValues & {
     isEditing: boolean
-    onDelete: () => void
     onEdit: () => void
     onChange: (field: EditableField, value: string) => void
     onCancel: () => void
+    // ProfilePage owns the draft state, so it already has every edit by save time.
     onSave: () => void
 }
 
@@ -24,7 +27,7 @@ const ROLE_LABELS: Record<number, string> = {
     2: "Customer",
 }
 
-export default function ProfileDetails({ firstName, lastName, email, phone, role, isActive, isEditing, onDelete, onEdit, onChange, onCancel, onSave }: ProfileDetailsProps) {
+export default function ProfileDetails({ firstName, lastName, email, phone, role, isActive, isEditing, onEdit, onChange, onCancel, onSave }: ProfileDetailsProps) {
     const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase()
 
     return (
@@ -52,73 +55,85 @@ export default function ProfileDetails({ firstName, lastName, email, phone, role
 
                     </header>
                 </div>
-                <div className="profile-section">
-                    <div className="profile-section-header">
-                        <h3 className="profile-section-title">Basic Information</h3>
-                        {!isEditing &&
-                            <button onClick={onEdit}>
-                                Edit Profile
-                            </button>}
-                    </div>
-
-                    <div className="info-grid">
-                        <InfoRow
-                            label="First Name"
-                            value={firstName}
-                            isEditing={isEditing} onChange={(v) => onChange("firstName", v)}
-                        />
-                        <InfoRow
-                            label="Last Name"
-                            value={lastName}
-                            isEditing={isEditing} onChange={(v) => onChange("lastName", v)}
-                        />
-                        <InfoRow
-                            label="Email"
-                            value={email}
-                            isEditing={isEditing} readOnly
-                        />
-                        <InfoRow
-                            label="Phone"
-                            value={phone}
-                            isEditing={isEditing} onChange={(v) => onChange("phone", v)}
-                        />
-                        <InfoRow
-                            label="Role"
-                            value={ROLE_LABELS[role] ?? "Unknown"}
-                            isEditing={isEditing} readOnly
-                        />
-                        <InfoRow
-                            label="Active"
-                            value={isActive ? "Active" : "Inactive"}
-                            isEditing={isEditing} readOnly
-                        />
-                    </div>
-
-                    {isEditing && (
-                        <div className="btn-group-small">
-                            <button onClick={onSave}>
-                                Save
-                            </button>
-                            <button onClick={onCancel}>
-                                Cancel
-                            </button>
+                <form className="profile-form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        onSave();
+                    }}
+                >
+                    <div className="profile-section">
+                        <div className="profile-section-header">
+                            <h3 className="profile-section-title">Basic Information</h3>
+                            {!isEditing &&
+                                <button type="button" onClick={onEdit}>
+                                    Edit Profile
+                                </button>}
                         </div>
-                    )}
 
-                </div>
+                        <div className="info-grid">
+                            <InfoRow
+                                label="First Name"
+                                value={firstName}
+                                isEditing={isEditing}
+                                onChange={(v) => onChange("firstName", v)}
+                            />
+                            <InfoRow
+                                label="Last Name"
+                                value={lastName}
+                                isEditing={isEditing}
+                                onChange={(v) => onChange("lastName", v)}
+                            />
+                            <InfoRow
+                                label="Email"
+                                value={email}
+                                isEditing={isEditing}
+                                readOnly
+                            />
+                            <InfoRow
+                                label="Phone"
+                                value={phone}
+                                isEditing={isEditing}
+                                onChange={(v) => onChange("phone", v)}
+                            />
+                            <InfoRow
+                                label="Role"
+                                value={ROLE_LABELS[role] ?? "Unknown"}
+                                isEditing={isEditing}
+                                readOnly
+                            />
+                            <InfoRow
+                                label="Active"
+                                value={isActive ? "Active" : "Inactive"}
+                                isEditing={isEditing}
+                                readOnly
+                            />
+                        </div>
+
+                        {isEditing && (
+                            <div className="btn-group-small">
+                                <button type="submit">
+                                    Save
+                                </button>
+                                <button type="button" onClick={onCancel}>
+                                    Cancel
+                                </button>
+                            </div>
+                        )}
+
+                    </div>
+                </form>
             </div>
+
         </>
     )
 }
 
-export function InfoRow({ label, value, isEditing, onChange, readOnly, span }: {
+export function InfoRow({ label, value, isEditing, onChange, readOnly }: {
     label: string
     value: string
     isEditing: boolean
     onChange?: (value: string) => void
     readOnly?: boolean
-    span?: boolean
-
 }) {
     const editable = isEditing && !readOnly && onChange
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { InfoRow } from "./ProfileDetails";
 import "./profile.css"
 import "./adress.css"
+import AddressModal from "./addressModal";
+import { AddressValues } from "./addressModal";
 
 type AddressProps = {
 
@@ -11,20 +12,19 @@ type AddressProps = {
     building_no: string;
     floor_no: string;
     apt_no: string;
-    onChange: (field: string, value: string) => void;
-    onCancel: () => void;
-    onSave: () => void;
+    onSave: (draft: AddressValues) => void;
+    onDelete: () => void
 }
 
 
-export default function Address({ city, street, district, building_no, floor_no, apt_no, onChange, onCancel, onSave }: AddressProps) {
+export default function Address({ city, street, district, building_no, floor_no, apt_no, onSave, onDelete }: AddressProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <>
             <div className="address-section">
                 <header className="address-section-header">
-                    <h2>Saved addresses</h2>
-                    <button className="add-btn" onClick={() => setIsModalOpen(true)}>Add address</button>
+                    <h2>Your Addresses</h2>
+                    <button className="add-btn" disabled >Add address</button>
                 </header>
                 <section className="address-section-details">
                     <div className="address-box">
@@ -37,62 +37,34 @@ export default function Address({ city, street, district, building_no, floor_no,
                         </div>
 
                         <div className="address-actions-btn">
-                            <button >Edit</button>
-                            <button >Delete</button>
+                            <button onClick={() => setIsModalOpen(true)} >Edit</button>
+                            <button onClick={onDelete}>
+
+                                Delete
+
+                            </button>
                         </div>
                     </div>
                 </section >
+                {isModalOpen && (
+                    <AddressModal
+                        city={city}
+                        street={street}
+                        district={district}
+                        building_no={building_no}
+                        floor_no={floor_no}
+                        apt_no={apt_no}
+
+                        onCancel={() => setIsModalOpen(false)}
+                        onSave={(draft) => {
+                            setIsModalOpen(false)
+                            onSave(draft)
+                        }}
+                        onDelete={onDelete}
+                    />
+                )}
+
             </div>
-            {isModalOpen && (
-                <div className="address-modal-overlay">
-                    <div className="address-modal">
-                        <div className="address-modal-header">
-                            <h2>add address modal</h2>
-                        </div>
-                        <form className="address-modal-body">
-                            <div className="info-row">
-                                <InfoRow
-                                    label="City"
-                                    value={city}
-                                    isEditing={true}
-                                    readOnly={false}
-                                    onChange={(v) => onChange("city", v)} />
-                                <InfoRow
-                                    label="Street"
-                                    value={street}
-                                    isEditing={true}
-                                    onChange={(v) => onChange("street", v)} />
-                                <InfoRow
-                                    label="District"
-                                    value={district}
-                                    isEditing={true}
-                                    onChange={(v) => onChange("district", v)} />
-                                <InfoRow
-                                    label="Building No"
-                                    value={building_no}
-                                    isEditing={true}
-                                    onChange={(v) => onChange("building_no", v)} />
-                                <InfoRow
-                                    label="Floor No"
-                                    value={floor_no}
-                                    isEditing={true}
-                                    readOnly={false}
-                                    onChange={(v) => onChange("floor_no", v)} />
-                                <InfoRow
-                                    label="Apartment No"
-                                    value={apt_no}
-                                    isEditing={isModalOpen}
-                                    readOnly={false}
-                                    onChange={(v) => onChange("apt_no", v)} />
-                                <div className="btn-group-small">
-                                    <button onClick={() => onSave()}>Add address</button>
-                                    <button onClick={() => { setIsModalOpen(false), onCancel() }}>Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
         </>
     )
 }

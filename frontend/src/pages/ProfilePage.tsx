@@ -4,6 +4,7 @@ import '../components/profile/profile.css'
 import Address from "@/components/profile/address"
 import Navbar from "@/components/ui/navbar"
 import axiosInstance from "@/api/axiosConfig"
+import { type AddressValues } from "@/components/profile/addressModal"
 
 type ProfileProps = {
     firstName: string
@@ -12,66 +13,65 @@ type ProfileProps = {
     phone: string
     role: number
     isActive: boolean
-    address: {
-        city: string
-        street: string
-        district: string
-        building_no: string
-        floor_no: string
-        apt_no: string
-    }
+    address: AddressValues
 }
 
 // Only these three are accepted by the backend's UpdateUserDto.
 type ProfileDraft = Pick<ProfileProps, "firstName" | "lastName" | "phone">
 
-export default function ProfilePage() {
-    const [profile, setProfile] = useState<ProfileProps>({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        role: 2,
-        isActive: true,
-        address: {
-            city: "",
-            street: "",
-            district: "",
-            building_no: "",
-            floor_no: "",
-            apt_no: "",
-        }
-    })
-    const [isEditing, setIsEditing] = useState(false)
-    const [draft, setDraft] = useState<ProfileDraft>({
+const EMPTY_PROFILE: ProfileProps = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    role: 2,
+    isActive: true,
+    address: {
+        city: "",
+        street: "",
+        district: "",
+        building_no: "",
+        floor_no: "",
+        apt_no: "",
+    },
+}
+
+function toDraft(profile: ProfileProps): ProfileDraft {
+    return {
         firstName: profile.firstName,
         lastName: profile.lastName,
         phone: profile.phone,
-    })
+    }
+}
+
+export default function ProfilePage() {
+    const [profile, setProfile] = useState<ProfileProps>(EMPTY_PROFILE)
+    const [isEditing, setIsEditing] = useState(false)
+    const [draft, setDraft] = useState<ProfileDraft>(toDraft(EMPTY_PROFILE))
+
+
+
+
+    async function refreshProfile() {
+        const data = await getProfile()
+        if (data) {
+            setProfile({ ...EMPTY_PROFILE, ...data })
+            setDraft(toDraft(data))
+        }
+    }
 
     useEffect(() => {
-        async function fetchProfile() {
-            const data = await getProfile()
-            if (data) {
-                setProfile(data)
-                setDraft({
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    phone: data.phone,
-                })
-            }
-        }
-        fetchProfile()
+        refreshProfile()
     }, [])
 
     function startEditing() {
         // Seed the draft from the saved profile so a previous cancel can't leak through.
-        setDraft({
-            firstName: profile.firstName,
-            lastName: profile.lastName,
-            phone: profile.phone,
-        })
+        setDraft(toDraft(profile))
         setIsEditing(true)
+    }
+
+    function handleAddressSave(address: AddressValues) {
+        setProfile((current) => ({ ...current, address }))
     }
 
     function handleChange(field: EditableField, value: string) {
@@ -80,11 +80,11 @@ export default function ProfilePage() {
 
     async function handleSave() {
         const saved = await saveProfile(draft)
-        if (saved) {
-            setProfile((current) => ({ ...current, ...draft }))
-            setIsEditing(false)
-        }
+        if (!saved) return
+        await refreshProfile()
+        setIsEditing(false)
     }
+
 
     return (
         <>
@@ -105,7 +105,6 @@ export default function ProfilePage() {
                     onChange={handleChange}
                     onCancel={() => setIsEditing(false)}
                     onSave={handleSave}
-                    onDelete={() => { }}
                 />
                 <Address
                     city={profile.address.city}
@@ -114,17 +113,13 @@ export default function ProfilePage() {
                     building_no={profile.address.building_no}
                     floor_no={profile.address.floor_no}
                     apt_no={profile.address.apt_no}
-                    onChange={(field: string, value: string) => { }}
-                    onSave={() => { }}
-                    onCancel={() => { }}
+                    onSave={handleAddressSave}
+                    onDelete={() => { }}
                 />
             </div>
         </>
     )
 }
-
-const API_BASE = "http://localhost:3000/api/user"
-
 
 async function getProfile(): Promise<ProfileProps | undefined> {
     try {
@@ -144,3 +139,4 @@ async function saveProfile(draft: ProfileDraft): Promise<boolean> {
         return false
     }
 }
+
