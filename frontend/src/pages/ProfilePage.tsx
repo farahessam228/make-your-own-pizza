@@ -27,19 +27,19 @@ type ProfileDraft = Pick<ProfileProps, "firstName" | "lastName" | "phone">
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState<ProfileProps>({
-        firstName: "firstname",
-        lastName: "lastname",
-        email: "[EMAIL_ADDRESS]",
-        phone: "01000661832",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
         role: 2,
         isActive: true,
         address: {
-            city: "Cairo",
-            street: "123 Main St",
-            district: "123 Main St",
-            building_no: "123",
-            floor_no: "123",
-            apt_no: "123",
+            city: "",
+            street: "",
+            district: "",
+            building_no: "",
+            floor_no: "",
+            apt_no: "",
         }
     })
     const [isEditing, setIsEditing] = useState(false)
@@ -114,6 +114,9 @@ export default function ProfilePage() {
                     building_no={profile.address.building_no}
                     floor_no={profile.address.floor_no}
                     apt_no={profile.address.apt_no}
+                    onChange={(field: string, value: string) => { }}
+                    onSave={() => { }}
+                    onCancel={() => { }}
                 />
             </div>
         </>

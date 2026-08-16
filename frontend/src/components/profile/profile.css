@@ -32,8 +32,14 @@
     font-family: var(--font-sans);
 }
 
+.profile-shell .profile-intro {
+    user-select: none;
+    position: sticky;
+}
+
 /* ---- identity header ---- */
 .profile-identity {
+    user-select: none;
     display: flex;
     align-items: center;
     gap: 20px;
