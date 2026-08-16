@@ -1,5 +1,6 @@
 import { InfoRow } from "./ProfileDetails";
 import { useState } from "react";
+import "@/components/profile/adress.css"
 
 export type AddressValues = {
     city: string,
