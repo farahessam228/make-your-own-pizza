@@ -6,8 +6,8 @@ type ProfileValues = {
     lastName: string
     email: string
     phone: string
-    role: number
-    isActive: boolean
+    isSaving: boolean
+
 }
 
 type ProfileDetailsProps = ProfileValues & {
@@ -19,15 +19,8 @@ type ProfileDetailsProps = ProfileValues & {
     onSave: () => void
 }
 
-// Backend Role enum: Delivery = 0, Manager = 1, Customer = 2.
-// Program.cs registers no JsonStringEnumConverter, so this arrives as a number.
-const ROLE_LABELS: Record<number, string> = {
-    0: "Delivery",
-    1: "Manager",
-    2: "Customer",
-}
 
-export default function ProfileDetails({ firstName, lastName, email, phone, role, isActive, isEditing, onEdit, onChange, onCancel, onSave }: ProfileDetailsProps) {
+export default function ProfileDetails({ firstName, lastName, email, phone, isSaving, isEditing, onEdit, onChange, onCancel, onSave }: ProfileDetailsProps) {
     const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase()
 
     return (
@@ -95,26 +88,14 @@ export default function ProfileDetails({ firstName, lastName, email, phone, role
                                 isEditing={isEditing}
                                 onChange={(v) => onChange("phone", v)}
                             />
-                            <InfoRow
-                                label="Role"
-                                value={ROLE_LABELS[role] ?? "Unknown"}
-                                isEditing={isEditing}
-                                readOnly
-                            />
-                            <InfoRow
-                                label="Active"
-                                value={isActive ? "Active" : "Inactive"}
-                                isEditing={isEditing}
-                                readOnly
-                            />
                         </div>
 
                         {isEditing && (
                             <div className="btn-group-small">
-                                <button type="submit">
-                                    Save
+                                <button type="submit" disabled={isSaving}>
+                                    {isSaving ? "Saving..." : "Save"}
                                 </button>
-                                <button type="button" onClick={onCancel}>
+                                <button type="button" onClick={onCancel} disabled={isSaving}>
                                     Cancel
                                 </button>
                             </div>

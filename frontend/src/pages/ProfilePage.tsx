@@ -48,15 +48,24 @@ export default function ProfilePage() {
     const [profile, setProfile] = useState<ProfileProps>(EMPTY_PROFILE)
     const [isEditing, setIsEditing] = useState(false)
     const [draft, setDraft] = useState<ProfileDraft>(toDraft(EMPTY_PROFILE))
-
-
+    const [isLoading, setIsLoading] = useState(true)
+    const [isSaving, setIsSaving] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
 
     async function refreshProfile() {
-        const data = await getProfile()
-        if (data) {
-            setProfile({ ...EMPTY_PROFILE, ...data })
-            setDraft(toDraft(data))
+        try {
+            const data = await getProfile()
+            if (data) {
+                const merged = { ...EMPTY_PROFILE, ...data }
+                setProfile(merged)
+                setDraft(toDraft(merged))
+            }
+            else
+                setError("Could not load your profile.")
+        }
+        finally {
+            setIsLoading(false)
         }
     }
 
@@ -79,12 +88,33 @@ export default function ProfilePage() {
     }
 
     async function handleSave() {
-        const saved = await saveProfile(draft)
-        if (!saved) return
-        await refreshProfile()
-        setIsEditing(false)
+        setError(null)
+        setIsSaving(true)
+        try {
+            const saved = await saveProfile(draft)
+            if (!saved) {
+                setError("Could not save your changes. Please retry.")
+                return
+            }
+            await refreshProfile()
+            setIsEditing(false)
+        }
+        finally {
+            setIsSaving(false)
+        }
     }
 
+    if (isLoading) {
+        return (
+            <>
+                <Navbar />
+                <div className="profile-page">
+                    <p className="profile-page-eyebrow">Account</p>
+                    <h2 className="profile-page-title">Loading…</h2>
+                </div>
+            </>
+        )
+    }
 
     return (
         <>
@@ -92,14 +122,14 @@ export default function ProfilePage() {
             <div className="profile-page">
                 <p className="profile-page-eyebrow">Account</p>
                 <h2 className="profile-page-title">My Profile</h2>
+                {error && <p className="profile-error" role="alert">{error}</p>}
 
                 <ProfileDetails
                     firstName={isEditing ? draft.firstName : profile.firstName}
                     lastName={isEditing ? draft.lastName : profile.lastName}
                     phone={isEditing ? draft.phone : profile.phone}
                     email={profile.email}
-                    role={profile.role}
-                    isActive={profile.isActive}
+                    isSaving={isSaving}
                     isEditing={isEditing}
                     onEdit={startEditing}
                     onChange={handleChange}
@@ -121,9 +151,13 @@ export default function ProfilePage() {
     )
 }
 
-async function getProfile(): Promise<ProfileProps | undefined> {
+
+
+type UserResponse = Pick<ProfileProps, "firstName" | "lastName" | "email" | "phone">
+
+async function getProfile(): Promise<UserResponse | undefined> {
     try {
-        const response = await axiosInstance.get<ProfileProps>("/user/me")
+        const response = await axiosInstance.get<UserResponse>("/user/me")
         return response.data
     } catch (error) {
         console.error(error)
