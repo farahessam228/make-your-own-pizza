@@ -1,11 +1,28 @@
-﻿# Ignore Visual Studio workspace and temporary files anywhere in the repo
+# Ignore Visual Studio workspace and temporary files anywhere in the repo
 .vs/
 **/.vs/
 
-# Backend build/generated files
+# Backend build/generated files (old monolithic project)
 Backend/MakeYourOwnPizza/bin/
 Backend/MakeYourOwnPizza/obj/
 Backend/MakeYourOwnPizza/*.user
+
+# Backend build/generated files (Clean Architecture projects)
+Backend/MakeYourOwnPizza.Presentation/bin/
+Backend/MakeYourOwnPizza.Presentation/obj/
+Backend/MakeYourOwnPizza.Presentation/*.user
+Backend/MakeYourOwnPizza.Application/bin/
+Backend/MakeYourOwnPizza.Application/obj/
+Backend/MakeYourOwnPizza.Application/*.user
+Backend/MakeYourOwnPizza.Domain/bin/
+Backend/MakeYourOwnPizza.Domain/obj/
+Backend/MakeYourOwnPizza.Domain/*.user
+Backend/MakeYourOwnPizza.Infrastructure/bin/
+Backend/MakeYourOwnPizza.Infrastructure/obj/
+Backend/MakeYourOwnPizza.Infrastructure/*.user
+
+# Environment files (contain secrets)
+Backend/**/.env
 
 # Visual Studio temporary files
 *.suo
@@ -13,5 +30,3 @@ Backend/MakeYourOwnPizza/*.user
 *.userosscache
 *.sln.docstates
 *.claude
-
-

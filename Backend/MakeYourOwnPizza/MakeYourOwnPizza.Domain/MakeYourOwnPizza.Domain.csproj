@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <!-- set C# 8.0 or latest -->
+    <LangVersion>8.0</LangVersion>
+    <!-- optional: enable nullable reference types -->
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>

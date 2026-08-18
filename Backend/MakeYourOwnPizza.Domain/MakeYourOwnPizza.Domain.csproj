@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyName>MakeYourOwnPizza.Domain</AssemblyName>
+    <RootNamespace>MakeYourOwnPizza.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Default SDK-style projects use globbing; no explicit <Compile> entries required -->
+
+</Project>
