@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = MakeYourOwnPizza.Domain
+build_property.ProjectDir = D:\iScore\DevProject\Backend\MakeYourOwnPizza\MakeYourOwnPizza.Domain\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

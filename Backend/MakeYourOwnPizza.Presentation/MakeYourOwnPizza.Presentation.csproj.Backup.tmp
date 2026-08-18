@@ -4,25 +4,22 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>2cf98765-d85e-4dbc-8abf-f7d36c1c77ff</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
+    <DockerfileContext>..\MakeYourOwnPizza</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="MakeYourOwnPizza.Domain\MakeYourOwnPizza.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.19" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.29" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.29">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.30">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MakeYourOwnPizza.Application\MakeYourOwnPizza.Application.csproj" />
+    <ProjectReference Include="..\MakeYourOwnPizza.Infrastructure\MakeYourOwnPizza.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

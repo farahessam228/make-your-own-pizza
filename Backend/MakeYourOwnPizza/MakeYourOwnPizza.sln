@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37516.0 d17.14
+VisualStudioVersion = 17.14.37516.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeYourOwnPizza", "MakeYourOwnPizza.csproj", "{D0260663-5C26-43CE-A3FD-5587D78D4E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeYourOwnPizza.Domain", "..\MakeYourOwnPizza.Domain\MakeYourOwnPizza.Domain.csproj", "{0BD40BE9-54D4-483A-9969-6026CCBA6536}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeYourOwnPizza.Presentation", "..\MakeYourOwnPizza.Presentation\MakeYourOwnPizza.Presentation.csproj", "{3EA1AC79-3F19-48B4-B467-7CB0BC80EEA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeYourOwnPizza.Application", "..\MakeYourOwnPizza.Application\MakeYourOwnPizza.Application.csproj", "{C7F21672-BB1C-4687-9311-15B96B2F6899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{D0260663-5C26-43CE-A3FD-5587D78D4E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0260663-5C26-43CE-A3FD-5587D78D4E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0260663-5C26-43CE-A3FD-5587D78D4E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD40BE9-54D4-483A-9969-6026CCBA6536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD40BE9-54D4-483A-9969-6026CCBA6536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD40BE9-54D4-483A-9969-6026CCBA6536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD40BE9-54D4-483A-9969-6026CCBA6536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA1AC79-3F19-48B4-B467-7CB0BC80EEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA1AC79-3F19-48B4-B467-7CB0BC80EEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA1AC79-3F19-48B4-B467-7CB0BC80EEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA1AC79-3F19-48B4-B467-7CB0BC80EEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7F21672-BB1C-4687-9311-15B96B2F6899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7F21672-BB1C-4687-9311-15B96B2F6899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7F21672-BB1C-4687-9311-15B96B2F6899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7F21672-BB1C-4687-9311-15B96B2F6899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
